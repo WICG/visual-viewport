@@ -16,7 +16,9 @@ This confusion has caused many desktop sites to break when pinch-zoomed or when 
 
 ## Proposed Plan
 
-We believe the best way forward is to change those remaining CSSOM scroll properties to be relative to the layout viewport. In fact, Chrome did this in M48 but, due to [developer feedback](http://crbug.com/571297), this change was reverted in M49. There was more reliance on this than anticipated. In order to make this transition we propose adding a new explicit API for the visual viewport. With an explicit API, and after a sufficient transition period, we would once again change the CSSOM scroll properties to be relative to the layout viewport. This change would make sure existing desktop sites continue to function correctly as new UI features are added. At the same time, this would allow authors to use and customize those features where needed.
+We believe the best way forward is to change those remaining CSSOM scroll properties to be relative to the layout viewport. In fact, Chrome did this in M48 but, due to [developer feedback](http://crbug.com/571297), this change was reverted in M49. There was more reliance on this than anticipated.
+
+In order to make this transition we propose adding a new explicit API for the visual viewport. With an explicit API, and after a sufficient transition period, we could once again change the CSSOM scroll properties to be relative to the layout viewport. This change would make sure existing desktop sites continue to function correctly as new UI features are added. At the same time, it would allow authors to use and customize those features where needed.
 
 The new API is also easy to feature detect and polyfilling this behavior should be fairly straightforward.
 
