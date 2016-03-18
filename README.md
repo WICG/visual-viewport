@@ -2,7 +2,7 @@
 
 ## tl;dr
 
-We propose adding a `viewport` object on `document` that contains the properties of the visual viewport.
+We propose adding a `visualViewport` object on `document` that contains the properties of the visual viewport.
 
 ## Background
 
@@ -24,10 +24,10 @@ The new API is also easy to feature detect and polyfilling this behavior should 
 
 ## Proposed API
 
-  * Add a viewport object on `document`. 
+  * Add a `visualViewport` object on `document`. 
 
 ```
-viewport = {
+visualViewport = {
     double scrollTop;  // Relative to the layout viewport
     double scrollLeft; // and writable.
 
@@ -38,7 +38,7 @@ viewport = {
 }
 ```
 
-  * Fire a `viewportchanged` event against `document` whenever these properties change.
+  * Fire a `viewportchanged` event against `document` whenever any of these properties change.
 
 ## Example
 
@@ -62,7 +62,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
 <script>
     var bottomBar = document.getElementById('bottombar');
-    var viewport = document.viewport;
+    var viewport = document.visualViewport;
     document.addEventListener('viewportchanged', function()   
     {
         // Since the bar is position: fixed we need to offset it by the visual
