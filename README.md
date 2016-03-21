@@ -1,4 +1,4 @@
-# Viewport API
+# Visual Viewport API
 
 ## tl;dr
 
