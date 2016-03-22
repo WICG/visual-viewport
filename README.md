@@ -44,7 +44,7 @@ visualViewport = {
 
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
 
-```
+```html
 <style>
     #bottombar {
         position: fixed;
