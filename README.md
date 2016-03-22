@@ -38,7 +38,7 @@ visualViewport = {
 }
 ```
 
-  * Fire a `viewportchanged` event against `document` whenever any of these properties change.
+  * Fire a `visualviewportchanged` event against `document` whenever any of these properties change.
 
 ## Example
 
@@ -63,7 +63,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 <script>
     var bottomBar = document.getElementById('bottombar');
     var viewport = document.visualViewport;
-    document.addEventListener('viewportchanged', function()   
+    document.addEventListener('visualviewportchanged', function()   
     {
         // Since the bar is position: fixed we need to offset it by the visual
         // viewport's offset from the layout viewport origin.
