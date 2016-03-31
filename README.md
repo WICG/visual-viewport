@@ -24,7 +24,7 @@ The new API is also easy to feature detect and polyfilling this behavior should 
 
 ## Proposed API
 
-  * Add a `visualViewport` object on `document`. 
+  * Add a `visualViewport` object on `document`. The visualViewport object can be null if the document doesn't have a view. 
 
 ```
 visualViewport = {
