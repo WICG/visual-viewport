@@ -4,6 +4,8 @@
 
 We propose adding a `visualViewport` object on `document` that contains the properties of the visual viewport.
 
+_Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags._
+
 ## Background
 
 The mobile web contains two viewports, the Layout and Visual viewport. The Layout viewport is what a page lays out its elements into(*) and the Visual viewport is what is actually visible on the screen. When the user pinch-zooms into the page, the visual viewport shrinks but the layout viewport is unchanged. UI like the on-screen keyboard (OSK) can also shrink the visual viewport without affecting the layout viewport. See this [demo](http://bokan.ca/viewport/index.html) to visualize the two viewports. This isn't specified anywhere and implementations vary greatly between browsers.
