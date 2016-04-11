@@ -36,7 +36,9 @@ visualViewport = {
     double clientWidth;  // Read-only and excludes the scrollbars
     double clientHeight; // if present.
 
-    double pageScale; // Read-only
+    double pageScale; // Read-only. The scaling factor applied to
+                      // the visual viewport relative to the `ideal
+                      // viewport` (size at width=device-width).
 }
 ```
 
