@@ -4,7 +4,7 @@
 
 We propose adding a `visualViewport` object on `document` that contains the properties of the visual viewport.
 
-_Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags._
+_Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for implementation details_
 
 ## Background
 
