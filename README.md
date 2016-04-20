@@ -72,8 +72,8 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
         // Since the bar is position: fixed we need to offset it by the visual
         // viewport's offset from the layout viewport origin.
         var offsetX = viewport.scrollLeft;
-        var offsetY = document.documentElement.clientHeight
-                    - viewport.clientHeight
+        var offsetY = viewport.clientHeight
+                    - document.documentElement.clientHeight
                     + viewport.scrollTop;
 
         // You could also do this by setting style.left and style.top if you
