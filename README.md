@@ -49,19 +49,27 @@ visualViewport = {
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
 
 ```html
+<meta name="viewport" content="width=device-width">
 <style>
     #bottombar {
         position: fixed;
         left: 0px;
         right: 0px;
         bottom: 0px;
+        background-color: red;
         transform-origin: left bottom;
         transform: translate(0px, 0px) scale(1);
+    }
+    #forcescrolling {
+        width: 100px;
+        height: 2000px;
+        background-color: green;
     }
 </style>
 
 <body>
     <div id="bottombar">This stays stuck to the visual viewport</div>
+    <div id="forcescrolling"></div>
 </body>
 
 <script>
@@ -73,7 +81,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
         // viewport's offset from the layout viewport origin.
         var offsetX = viewport.scrollLeft;
         var offsetY = viewport.clientHeight
-                    - document.documentElement.clientHeight
+                    - window.outerHeight
                     + viewport.scrollTop;
 
         // You could also do this by setting style.left and style.top if you
