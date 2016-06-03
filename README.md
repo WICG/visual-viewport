@@ -51,6 +51,12 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 ```html
 <meta name="viewport" content="width=device-width">
 <style>
+    #layoutViewport {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+    }
     #bottombar {
         position: fixed;
         left: 0px;
@@ -70,6 +76,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 <body>
     <div id="bottombar">This stays stuck to the visual viewport</div>
     <div id="forcescrolling"></div>
+    <div id="layoutViewport"></div>
 </body>
 
 <script>
@@ -77,11 +84,13 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
     var viewport = document.visualViewport;
     document.addEventListener('visualviewportchanged', function()   
     {
+        var layoutViewport = document.getElementById('layoutViewport');
+
         // Since the bar is position: fixed we need to offset it by the visual
         // viewport's offset from the layout viewport origin.
         var offsetX = viewport.scrollLeft;
         var offsetY = viewport.clientHeight
-                    - window.outerHeight
+                    - layoutViewport.getBoundingClientRect().height
                     + viewport.scrollTop;
 
         // You could also do this by setting style.left and style.top if you
