@@ -2,7 +2,7 @@
 
 ## tl;dr
 
-We propose adding a `visualViewport` object on `document` that contains the properties of the visual viewport.
+We propose adding a `visualViewport` object on `window` that contains the properties of the visual viewport.
 
 _Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for implementation details_
 
@@ -26,7 +26,7 @@ The new API is also easy to feature detect and polyfilling this behavior should 
 
 ## Proposed API
 
-  * Add a `visualViewport` object on `document`. The visualViewport object can be null if the document doesn't have a view. 
+  * Add a `visualViewport` object on `window`. 
 
 ```
 visualViewport = {
@@ -42,7 +42,7 @@ visualViewport = {
 }
 ```
 
-  * Fire a `visualviewportchanged` event against `document` whenever any of these properties change.
+  * Fire a `visualviewportchanged` event against `window` whenever any of these properties change.
 
 ## Example
 
@@ -81,8 +81,8 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
 <script>
     var bottomBar = document.getElementById('bottombar');
-    var viewport = document.visualViewport;
-    document.addEventListener('visualviewportchanged', function()   
+    var viewport = window.visualViewport;
+    window.addEventListener('visualviewportchanged', function()   
     {
         var layoutViewport = document.getElementById('layoutViewport');
 
