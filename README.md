@@ -55,7 +55,7 @@ visualViewport = {
 ## Example
 
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
-[Example](https://rawgit.com/WICG/ViewportAPI/master/index.html)
+[Example](https://rawgit.com/WICG/ViewportAPI/master/example.html)
 
 ```html
 <meta name="viewport" content="width=device-width">
