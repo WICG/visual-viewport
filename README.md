@@ -16,6 +16,10 @@ This confusion has caused many desktop sites to break when pinch-zoomed or when 
 
 (*) - This isn't strictly true. In Chrome, the layout viewport is actually the "viewport at minimum scale". While on most well behaving pages this is the box that the page lays out into (i.e. the initial containing block), extra-wide elements or an explicit minimum-scale can change this. More specifically, the layout viewport is what position: fixed elements attach to.
 
+## Draft Spec
+
+[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/index.html) - Still in-progress.
+
 ## Proposed Plan
 
 We believe the best way forward is to change those remaining CSSOM scroll properties to be relative to the layout viewport. In fact, Chrome did this in M48 but, due to [developer feedback](http://crbug.com/571297), this change was reverted in M49. There was more reliance on this than anticipated.
