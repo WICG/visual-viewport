@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visual Viewport API</title>
+    <meta charset='utf-8'>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c-common'
+            async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+          specStatus: "CG-DRAFT",
+          shortName: "visualviewport",
+          edDraftURI: "http://wicg.github.io/ViewportAPI/",
+          testSuiteURI: "http://wicg.github.io/ViewportAPI/tests/",
+          editors: [
+                {   name:       "David Bokan",
+                    url:        "",
+                    company:    "Google",
+                    companyURL: "https://www.google.com/" }
+          ],
+          otherLinks: [{
+            key: 'Participation',
+            data: [
+                {
+                    value: 'GitHub repository',
+                    href: 'https://github.com/WICG/ViewportAPI/'
+                }, {
+                    value: 'File a bug / view open issues',
+                    href: 'https://github.com/WICG/ViewportAPI/issues'
+                }, {
+                    value: 'Feedback / discussion in the WICG',
+                    href: 'https://discourse.wicg.io/t/explicit-api-for-visual-viewport/1399'
+                }
+             ]
+          }],
+      };
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        The APIs introduced by this document provide authors with a way to determine
+        and interact with the properties of the visual viewport.
+      </p>
+    </section>
+
+    <section id='sotd'>
+      <p>
+        TODO
+      </p>
+    </section>
+
+    <section id="intro" class="informative">
+      <h2>Introduction</h2>
+      <p>
+        Some user agents have split their viewport into two conceptual viewports, colloquially
+        known as the <em>visual</em> and <em>layout</em> viewports. This separation is useful in
+        enabling a user agent (UA) with a small screen to allow the user to zoom in on parts of the page
+        without causing the page to respond, for example, by obscuring the user's view with
+        <code>position: fixed</code> elements. As another example, mobile UAs often provide an <em>on-screen
+        keyboard</em> (OSK) for user input. Without the visual/layout split, a <code>position: fixed</code>
+        element would be pushed up when the OSK is shown, obscuring the user's view. Informally,
+        the layout viewport is what the web page uses when laying out it's UI while the visual viewport
+        is the box on the page that the user can currently see, accounting for transient UI features like
+        pinch-zoom and the OSK.
+      </p>
+      <p>
+        The existing APIs provided by UAs are ambiguous about which viewport they're relative to. For
+        example, <code>document.scrollingElement.scrollLeft</code> returns the scroll position of the
+        visual viewport while <code>document.scrollingElement.clientWidth</code> returns the width of
+        the layout viewport. <code>getBoundingClientRect</code> returns the rect relative to the layout
+        viewport while positioning non-fixed elements relative to the layout viewport is difficult. This
+        makes building UI that responds to scrolls across mobile and desktop UAs difficult. Worse still,
+        there's no way for the developer to be notified when the visual viewport changes. For example,
+        the only way to know when the user has zoomed is to poll or listen to touch events and continually
+        check <code>window.innerWidth</code>.
+      </p>
+      <p>
+        The Visual Viewport API is designed to provide an explicit mechanism for developers to query and
+        potentially modify the properties of the visual viewport. It also introduces events that allow the
+        page to listen for changes in the visual viewport, allowing UX that explicitly wants to react to
+        these changes to do so. For example, keeping a small text-formatting bar above the OSK.
+      </p>
+    </section>
+    <section>
+      <h2>Description</h2>
+      <section dfn-for="VisualViewport">
+        <h3>The <code>VisualViewport</code> interface</h3>
+        <p>
+          A <dfn>VisualViewport</dfn> object represents the visual viewport for a given <code>window</code>.
+          Each <code>window</code> on a page will have a unique <code>VisualViewport</code> object representing
+          the properties associated with that <code>window</code>.
+        </p>
+        <pre class="idl">
+          interface VisualViewport {
+            readonly attribute double scrollTop;
+            readonly attribute double scrollLeft;
+
+            readonly attribute double clientWidth;
+            readonly attribute double clientHeight;
+
+            readonly attribute double pageScale;
+          };
+        </pre>
+        <dl>
+          <dt><dfn>scrollTop</dfn></dt>
+          <dd>
+            Returns the distance from the top edge of the visual viewport to the top edge of the layout viewport.
+          </dd>
+          <dt><dfn>scrollLeft</dfn></dt>
+          <dd>
+            Returns the distance from the left edge of the visual viewport to the left edge of the layout viewport.
+          </dd>
+          <dt><dfn>clientWidth</dfn></dt>
+          <dd>
+            Returns the width of the visual viewport in CSS pixels, excluding the width of any rendered scrollbar
+            if present.
+          </dd>
+          <dt><dfn>clientHeight</dfn></dt>
+          <dd>
+            Returns the height of the visual viewport in CSS pixels, excluding the height of any rendered scrollbar
+            if present.
+            <div class="note">
+              Because both the clientWidth and clientHeight attributes are expressed in CSS pixels, increasing either
+              browser-zoom or pinch-zoom will cause these values to shrink.
+            </div>
+          </dd>
+          <dt><dfn>pageScale</dfn></dt>
+          <dd>
+            Returns the zoom factor applied to the visual viewport. This is the ratio of CSS pixels to device
+            pixels derived from the visual viewport.
+            <div class="note">
+              This is distinct from the CSS pixel to device pixel ratio introduced via browser zoom. Both zooms
+              affect the total CSS pixel to device pixel ratio; however, browser zoom does so by shrinking the
+              layout viewport as browser zoom increases, causing the page to reflow. Pinch-zoom does so by shrinking
+              the visual viewport as pageScale increases, which does not reflow the page.
+            </div>
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <h3>The <code>visualviewportchanged</code> event</h3>
+        <p>
+          A user agent implementing this specification must provide a new DOM event, named <code>visualviewportchanged</code>.
+          The corresponding event must be of the type <code>UIEvent</code> and must fire on the <code>window</code> object.
+        </p>
+        <p>
+          The UA must fire the <code>visualviewportchanged</code> event on the <code>window</code> object after the values
+          in the <code>visualViewport</code> object change. This event may be fired asynchronously.
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
