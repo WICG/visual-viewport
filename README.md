@@ -6,6 +6,10 @@ We propose adding a `visualViewport` object on `window` that contains the proper
 
 _Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for implementation details_
 
+## Draft Spec
+
+[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/index.html) - Still in-progress.
+
 ## Background
 
 The mobile web contains two viewports, the Layout and Visual viewport. The Layout viewport is what a page lays out its elements into(*) and the Visual viewport is what is actually visible on the screen. When the user pinch-zooms into the page, the visual viewport shrinks but the layout viewport is unchanged. UI like the on-screen keyboard (OSK) can also shrink the visual viewport without affecting the layout viewport. See this [demo](http://bokan.ca/viewport/index.html) to visualize the two viewports. This isn't specified anywhere and implementations vary greatly between browsers.
@@ -15,10 +19,6 @@ Currently, several CSSOM scroll properties are relative to the visual viewport (
 This confusion has caused many desktop sites to break when pinch-zoomed or when showing the OSK (see [this bug ](http://crbug.com/489206) for examples). This is because mobile browsers added new semantics to existing properties, expecting they'd to be invisible to desktop browsers. This becomes a problem as the lines between mobile and desktop blur and features like on-screen keyboard and pinch-zoom make their way to desktops, or when accessing desktop pages from mobile devices.
 
 (*) - This isn't strictly true. In Chrome, the layout viewport is actually the "viewport at minimum scale". While on most well behaving pages this is the box that the page lays out into (i.e. the initial containing block), extra-wide elements or an explicit minimum-scale can change this. More specifically, the layout viewport is what position: fixed elements attach to.
-
-## Draft Spec
-
-[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/index.html) - Still in-progress.
 
 ## Proposed Plan
 
