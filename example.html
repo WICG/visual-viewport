@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        #layoutViewport {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+        }
+        #bottombar {
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            background-color: red;
+            transform-origin: left bottom;
+            transform: translate(0px, 0px) scale(1);
+        }
+        #forcescrolling {
+            width: 100px;
+            height: 2000px;
+            background-color: green;
+        }
+    </style>
+  </head>
+
+  <body>
+      <div id="bottombar">This stays stuck to the visual viewport</div>
+      <div id="forcescrolling"></div>
+      <div id="layoutViewport"></div>
+
+      <script>
+          var bottomBar = document.getElementById('bottombar');
+          var viewport = window.visualViewport;
+          function viewportHandler() {
+              var layoutViewport = document.getElementById('layoutViewport');
+
+              // Since the bar is position: fixed we need to offset it by the visual
+              // viewport's offset from the layout viewport origin.
+              var offsetX = viewport.scrollLeft;
+              var offsetY = viewport.clientHeight
+                          - layoutViewport.getBoundingClientRect().height
+                          + viewport.scrollTop;
+
+              // You could also do this by setting style.left and style.top if you
+              // use width: 100% instead.
+              bottomBar.style.transform = 'translate(' + 
+                                          offsetX + 'px,' +
+                                          offsetY + 'px) ' +
+                                          'scale(' + 1/viewport.pageScale + ')'
+          }
+          window.visualViewport.addEventListener('scroll', viewportHandler);
+          window.visualViewport.addEventListener('resize', viewportHandler);
+      </script>
+  </body>
+</html>
+

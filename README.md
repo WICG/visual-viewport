@@ -35,22 +35,27 @@ The new API is also easy to feature detect and polyfilling this behavior should 
 ```
 visualViewport = {
     double scrollTop;  // Relative to the layout viewport
-    double scrollLeft; // and writable.
+    double scrollLeft; // and read-only.
 
     double clientWidth;  // Read-only and excludes the scrollbars
     double clientHeight; // if present.
 
-    double pageScale; // Read-only. The scaling factor applied to
+    double scale;     // Read-only. The scaling factor applied to
                       // the visual viewport relative to the `ideal
-                      // viewport` (size at width=device-width).
+                      // viewport` (size at width=device-width). This
+                      // is the same scale as used in the viewport
+                      // <meta> tag.
 }
 ```
 
-  * Fire a `visualviewportchanged` event against `window` whenever any of these properties change.
+  * Fire a `scroll` event against `window.visualViewport` whenever the `scrollTop` or `scrollLeft` attributes change.
+
+  * Fire a `resize` event against `window.visualViewport` whenever the `clientWidth` or `clientHeight` attributes change.
 
 ## Example
 
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
+[Example](https://rawgit.com/WICG/ViewportAPI/master/index.html)
 
 ```html
 <meta name="viewport" content="width=device-width">
@@ -86,8 +91,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 <script>
     var bottomBar = document.getElementById('bottombar');
     var viewport = window.visualViewport;
-    window.addEventListener('visualviewportchanged', function()   
-    {
+    function viewportHandler() {
         var layoutViewport = document.getElementById('layoutViewport');
 
         // Since the bar is position: fixed we need to offset it by the visual
@@ -103,6 +107,8 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
                                     offsetX + 'px,' +
                                     offsetY + 'px) ' +
                                     'scale(' + 1/viewport.pageScale + ')'
-    });
+    }
+    window.visualViewport.addEventListener('scroll', viewportHandler);
+    window.visualViewport.addEventListener('resize', viewportHandler);
 </script>
 ```
