@@ -102,7 +102,7 @@
             readonly attribute double clientWidth;
             readonly attribute double clientHeight;
 
-            readonly attribute double pageScale;
+            readonly attribute double scale;
           };
         </pre>
         <dl>
@@ -128,7 +128,7 @@
               browser-zoom or pinch-zoom will cause these values to shrink.
             </div>
           </dd>
-          <dt><dfn>pageScale</dfn></dt>
+          <dt><dfn>scale</dfn></dt>
           <dd>
             Returns the zoom factor applied to the visual viewport. This is the ratio of CSS pixels to device
             pixels derived from the visual viewport.
@@ -136,20 +136,23 @@
               This is distinct from the CSS pixel to device pixel ratio introduced via browser zoom. Both zooms
               affect the total CSS pixel to device pixel ratio; however, browser zoom does so by shrinking the
               layout viewport as browser zoom increases, causing the page to reflow. Pinch-zoom does so by shrinking
-              the visual viewport as pageScale increases, which does not reflow the page.
+              the visual viewport as scale increases, which does not reflow the page.
             </div>
           </dd>
         </dl>
       </section>
       <section>
-        <h3>The <code>visualviewportchanged</code> event</h3>
+        <h3>Events</h3>
+        <h4>Resizing the viewport</h4>
         <p>
-          A user agent implementing this specification must provide a new DOM event, named <code>visualviewportchanged</code>.
-          The corresponding event must be of the type <code>UIEvent</code> and must fire on the <code>window</code> object.
+          If the viewport's width or height is changed (e.g. in response to user interaction), the user agent must
+          fire an event named <code>resize</code> on the <code>window.visualViewport</code> object.
+          This event may be fired asynchronously.
         </p>
+        <h4>Scrolling</h4>
         <p>
-          The UA must fire the <code>visualviewportchanged</code> event on the <code>window</code> object after the values
-          in the <code>visualViewport</code> object change. This event may be fired asynchronously.
+          Whenever the visual viewport gets scrolled (e.g. in response to user interaction or by an API), the user agent must fire an event named <code>scroll</code> on the <code>window.visualViewport</code> object.
+          This event may be fired asynchronously.
         </p>
       </section>
     </section>
