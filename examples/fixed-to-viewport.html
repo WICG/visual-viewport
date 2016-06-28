@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  This example shows how the ViewportAPI can be used to keep a fixed
+  positioned element fixed to the visual viewport.
+-->
+<html>
+  <head>
+    <meta name="description" content="Stick position:fixed to visual viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=2">
+    <style>
+      #bottombar {
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: red;
+        transform-origin: left bottom;
+        transform: translate(0px, 0px) scale(1);
+      }
+      #forcescrolling {
+        width: 100px;
+        height: 2000px;
+        background-color: green;
+      }
+    </style>
+  </head>
+
+  <body>
+      <div id="bottombar">This stays stuck to the visual viewport</div>
+      <div id="forcescrolling"></div>
+      <script>
+          var bottomBar = document.getElementById('bottombar');
+          var viewport = window.visualViewport;
+
+          function viewportHandler() {
+            // Since the bar is position: fixed we need to offset it by the visual
+            // viewport's offset from the layout viewport origin.
+            var offsetX = viewport.scrollLeft;
+            var offsetY = viewport.clientHeight
+                        - document.documentElement.clientHeight
+                        + viewport.scrollTop;
+            // You could also do this by setting style.left and style.top if you
+            // use width: 100% instead.
+            bottomBar.style.transform = 'translate(' +
+                                        offsetX + 'px,' +
+                                        offsetY + 'px) ' +
+                                        'scale(' + 1/viewport.scale + ')'
+          }
+
+          window.onload = viewportHandler;
+          window.visualViewport.onresize = viewportHandler;
+          window.visualViewport.onscroll = viewportHandler;
+      </script>
+  </body>
+</html>
+

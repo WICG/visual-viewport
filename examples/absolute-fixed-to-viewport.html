@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+  This example shows how the ViewportAPI can be used to keep an absolute
+  positioned element fixed to the viewport. Note that this example assumes that
+  the window properties are relative to the layout viewport (see
+  crbug.com/489206). This can be tested by enabling the "Inert Visual Viewport"
+  experiment from chrome:flags.
+
+  Without the flag, the ViewportAPI is not needed since properties like
+  window.pageYOffset already take the visual viewport's position into account.
+-->
+<html>
+  <head>
+    <meta name="description" content="Stick position:absolute to visual viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=2">
+    <style>
+      body {
+        height: 2500px;
+      }
+      #fixed {
+        position:absolute;
+        left: 50px;
+        height: 200px;
+        width: 200px;
+        top: 150px;
+        background-color: #fcc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="fixed"></div>
+    <script>
+      function viewport() {
+        return window.visualViewport;
+      }
+
+      var fixed = document.getElementById("fixed");
+      var initialTop = fixed.getBoundingClientRect().top + viewport().scrollTop;
+      var fixedAt = 10;
+
+      function viewportHandler() {
+        var scrollTop = window.pageYOffset + viewport().scrollTop;
+        if (scrollTop > initialTop)
+          fixed.style.top = (scrollTop + fixedAt) + 'px';
+        else
+          fixed.style.top = '';
+      }
+
+      window.onscroll = viewportHandler;
+      viewport().onscroll = viewportHandler;
+      viewport().onresize = viewportHandler;
+    </script>
+  </body>
+</html>
+
