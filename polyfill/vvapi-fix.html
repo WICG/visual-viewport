@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width">
     <style>
         #bottombar {
             position: fixed;
             left: 0px;
-            right: 0px;
+            width: 100%;
             bottom: 0px;
+            height: 20px;
             background-color: red;
             transform-origin: left bottom;
             transform: translate(0px, 0px) scale(1);
@@ -24,16 +26,17 @@
         ::-webkit-scrollbar {
         }
 
-        body {
+        html, body {
+          -ms-overflow-style: none;
         }
 
     </style>
     <script src="visualViewport.js"></script>
-    <script src="vvapi.js"></script>
+    <script src="vvapi-fix.js"></script>
   </head>
   <body>
       <div id="layoutInvisible"></div>
-      <div style="width:500px">
+      <div style="width:90%">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices felis in sapien facilisis maximus. Nam fringilla purus sit amet risus ullamcorper fringilla. Aenean lorem diam, consequat vestibulum nibh ut, consectetur hendrerit diam. Suspendisse ullamcorper eu massa blandit pellentesque. In hac habitasse platea dictumst. Maecenas ut tempus orci. Nunc aliquet ante in tortor tempor rhoncus. Praesent vulputate ultrices lacus vel lobortis. Morbi a scelerisque mauris, et venenatis quam. Fusce semper felis enim, et scelerisque neque tempus sit amet. Morbi porttitor cursus odio, a rutrum justo posuere sit amet. Donec tristique egestas vehicula. Vestibulum scelerisque leo eget lectus pretium, et tincidunt sapien egestas.
         Cras dignissim, elit sed dignissim consectetur, mauris diam maximus lectus, a sodales ante tortor et tortor. Nullam quam neque, mattis ut sodales ac, consectetur sit amet sapien. Mauris auctor purus id lorem mattis finibus. Vestibulum vehicula odio nulla, sed tempus orci dapibus ac. Pellentesque auctor condimentum ornare. Aenean eu ipsum sit amet nisi maximus faucibus. Integer non bibendum erat. Sed fringilla sapien enim, nec imperdiet tortor pellentesque eget. Integer vehicula dignissim congue. Aenean vitae elit nisl. Suspendisse tristique odio vitae odio tincidunt, sed gravida dui ultricies. Aenean id convallis eros. Praesent non lorem urna. Pellentesque quam ante, vehicula ac viverra sit amet, accumsan dictum odio. Nulla non molestie justo, ac scelerisque quam.
         Donec sit amet lectus congue, feugiat lectus at, pharetra erat. Phasellus justo lacus, venenatis vel erat nec, efficitur faucibus eros. Donec diam ipsum, tempus et molestie at, ultricies eu metus. Aenean efficitur nisl quam, vitae facilisis leo sodales et. Aliquam erat ipsum, pretium nec tempor at, fringilla sit amet arcu. Aliquam non metus vitae metus iaculis mattis eget sit amet neque. Integer at imperdiet massa. Mauris tincidunt pulvinar dolor tincidunt egestas.
@@ -55,6 +58,8 @@
         Mauris sed metus vel felis iaculis malesuada. Donec ac nunc sed odio facilisis pellentesque vel a nunc. Etiam accumsan dapibus vehicula. Suspendisse nisi lorem, tincidunt eu enim non, pellentesque mattis mi. Curabitur blandit vel odio a pretium. Donec condimentum sapien erat, non laoreet tortor aliquet nec. Nam suscipit bibendum posuere. Phasellus ornare ipsum at leo sodales, quis pellentesque orci accumsan. Nam pellentesque blandit erat a mollis. Integer porta ante a blandit scelerisque. Pellentesque tristique pulvinar ligula, ac pulvinar tellus auctor et. Suspendisse eget metus convallis, venenatis lectus et, consectetur mi. Ut eget enim interdum, rhoncus turpis quis, elementum nisi. Aliquam consequat, nibh id tempor semper, massa massa luctus diam, eget tincidunt nunc mi nec risus. Sed cursus tristique ex non iaculis. Suspendisse a est ut odio porttitor sodales.
         In mattis sapien lectus, sed pulvinar nisl aliquet in. Nunc ut faucibus ante, id egestas nisl. Mauris non nunc a lacus condimentum bibendum in non orci. Aliquam posuere, lacus ut convallis dapibus, nisl metus consectetur ligula, efficitur aliquet metus tortor at nisl. Mauris in viverra turpis, eu blandit magna. Phasellus scelerisque eget orci ut tincidunt. Mauris condimentum dictum sollicitudin. Nam vel dapibus nulla. Phasellus id ex dolor. Pellentesque massa leo, placerat laoreet tortor at, sagittis finibus lacus. Morbi eleifend tortor id semper blandit.
       </div>
-      <div id="bottombar">This stays stuck to the visual viewport</div>
+      <div id="bottombar">
+          This stays stuck to the visual viewport
+      </div>
   </body>
 </html>
