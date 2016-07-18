@@ -30,12 +30,15 @@ The new API is also easy to feature detect and polyfilling this behavior should 
 
 ## Proposed API
 
-  * Add a `visualViewport` object on `window`. 
+  * Add a `visualViewport` object on `window`.
 
 ```
 visualViewport = {
     double scrollTop;  // Relative to the layout viewport
     double scrollLeft; // and read-only.
+
+    double pageX;  // Relative to the document
+    double pageY;  // and read-only.
 
     double clientWidth;  // Read-only and excludes the scrollbars
     double clientHeight; // if present.
@@ -103,7 +106,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
         // You could also do this by setting style.left and style.top if you
         // use width: 100% instead.
-        bottomBar.style.transform = 'translate(' + 
+        bottomBar.style.transform = 'translate(' +
                                     offsetX + 'px,' +
                                     offsetY + 'px) ' +
                                     'scale(' + 1/viewport.pageScale + ')'

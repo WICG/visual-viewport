@@ -99,6 +99,9 @@
             readonly attribute double scrollTop;
             readonly attribute double scrollLeft;
 
+            readonly attribute double pageX;
+            readonly attribute double pageY;
+
             readonly attribute double clientWidth;
             readonly attribute double clientHeight;
 
@@ -114,6 +117,16 @@
           <dd>
             Returns the distance from the left edge of the visual viewport to the left edge of the layout viewport.
           </dd>
+
+          <dt><dfn>pageX</dfn></dt>
+          <dd>
+            Returns the location of the left edge of the visual viewport from the left edge of the document.
+          </dd>
+          <dt><dfn>pageY</dfn></dt>
+          <dd>
+            Returns the location of the top edge of the visual viewport from the top edge of the document.
+          </dd>
+
           <dt><dfn>clientWidth</dfn></dt>
           <dd>
             Returns the width of the visual viewport in CSS pixels, excluding the width of any rendered scrollbar
