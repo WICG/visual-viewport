@@ -120,7 +120,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
 Here's a few other examples you can try out on Chrome Canary today. Be sure to turn on the following flags:
 
-  * chrome://flags/#enable-experimental-web-platform-features (Enabled window.visualViewport)
+  * chrome://flags/#enable-experimental-web-platform-features (Enable window.visualViewport)
   * chrome://flags/#inert-visual-viewport (Makes window.scrollX|innerWidth and others refer to layout viewport)
   * chrome://flags/#enable-osk-overscroll (Makes keyboard resize visual viewport only)
 
