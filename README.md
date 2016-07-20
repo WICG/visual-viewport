@@ -58,7 +58,8 @@ visualViewport = {
 ## Example
 
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
-[Example](https://rawgit.com/WICG/ViewportAPI/master/example.html)
+
+[Live example from below](https://rawgit.com/WICG/ViewportAPI/master/example.html)
 
 ```html
 <meta name="viewport" content="width=device-width">
@@ -115,3 +116,34 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
     window.visualViewport.addEventListener('resize', viewportHandler);
 </script>
 ```
+## Other Examples
+
+Here's a few other examples you can try out on Chrome Canary today. Be sure to turn on the following flags:
+
+  * chrome://flags/#enable-experimental-web-platform-features (Enabled window.visualViewport)
+  * chrome://flags/#inert-visual-viewport (Makes window.scrollX|innerWidth and others refer to layout viewport)
+  * chrome://flags/#enable-osk-overscroll (Makes keyboard resize visual viewport only)
+
+### Links
+
+  * [Hide on Zoom](https://rawgit.com/WICG/ViewportAPI/examples/hide-on-zoom.html): Overlays a position: fixed
+    box in the viewport (e.g. an ad) but hides to improve the UX when the user zooms in.
+  * [Fixed to keyboard](https://rawgit.com/WICG/ViewportAPI/examples/fixed-to-keyboard.html): Keeps a bar (e.g.
+    text formatting toolbar) fixed to the keyboard when it comes up.
+  * [Fixed to keyboard (No Zoom)](https://rawgit.com/WICG/ViewportAPI/examples/fixed-to-keyboard-no-zoom.html):
+    Same as above but makes the bar behave like position: fixed rather than position: device-fixed. That is, the
+    bar will stay above the keyboard, but if the user zooms in it will remain in its original position.
+  * [Fixed to viewport](https://rawgit.com/WICG/ViewportAPI/examples/fixed-to-viewport.html): Simulates position:
+    device-fixed by keeping a bar fixed to the visual viewport.
+  * [Fixed to viewport (absolute)](https://rawgit.com/WICG/ViewportAPI/examples/fixed-to-viewport.html): Same as
+    above but accomplished with position: absolute on the bar.
+
+### Polyfill (Work-in-Progress!)
+
+  We've added a rudimentary polyfill that should work across browsers (Safari is still WIP), albeit with worse
+  performance properties (requires polling). The polyfill itself is
+  [visualViewport.js](https://github.com/WICG/ViewportAPI/blob/master/polyfill/visualViewport.js)
+  and you can see two examples that use it in the same directory:
+
+  * [position: device-fixed with position: fixed](https://github.com/WICG/ViewportAPI/blob/master/polyfill/vvapi-fix.html)
+  * [position: device-fixed with position: absolute](https://github.com/WICG/ViewportAPI/blob/master/polyfill/vvapi-abs.html)
