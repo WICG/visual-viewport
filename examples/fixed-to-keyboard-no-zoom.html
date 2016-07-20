@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  This example shows how window.visualViewport can be used to keep a bar fixed
+  to the on-screen keyboard when the keyboard resizes the visual viewport. It's
+  effects are visible on Chrome for Android with the following flags enabled in
+  chrome://flags:
+    chrome://flags/#enable-experimental-web-platform-features
+    chrome://flags/#inert-visual-viewport
+    chrome://flags/#enable-osk-overscroll
+-->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        body, html{
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            box-sizing: border-box;
+            padding: 8px;
+            margin: 0px;
+        }
+        #bottombar {
+            position: fixed;
+            width: 100%;
+            left: 0px;
+            bottom: 0px;
+            height: 40px;
+            background-color: red;
+            transform-origin: left bottom;
+        }
+        #textbox {
+          width: 100%;
+          height: 100%;
+          padding: 0px;
+        }
+    </style>
+    <title>Example with text input and on-screen keyboard</title>
+  </head>
+
+  <body>
+      <div id="bottombar">This stays fixed to the keyboard</div>
+      <textarea id="textbox" placeholder="Enter comment..."></textarea>
+
+      <script>
+          var bottomBar = document.getElementById('bottombar');
+          var viewport = window.visualViewport;
+          function updateBar() {
+              var unscaledHeight = viewport.clientHeight * viewport.scale;
+              var threshold = window.innerHeight - unscaledHeight;
+              var viewportBottom = window.innerHeight -
+                  (viewport.scrollTop + viewport.clientHeight);
+
+              var offsetY = viewportBottom > threshold
+                  ? threshold
+                  : viewportBottom;
+
+              bottomBar.style.left = viewport.scrollLeft + 'px';
+              bottomBar.style.bottom = offsetY + 'px';
+          }
+
+          window.visualViewport.addEventListener('resize', updateBar);
+          window.visualViewport.addEventListener('scroll', updateBar);
+      </script>
+  </body>
+</html>
+
