@@ -41,7 +41,9 @@ visualViewport = {
     double pageY;  // and read-only.
 
     double clientWidth;  // Read-only and excludes the scrollbars
-    double clientHeight; // if present.
+    double clientHeight; // if present. These values give the number
+                         // of CSS pixels visible in the visual viewport.
+                         // i.e. they shrink as the user zooms in.
 
     double scale;     // Read-only. The scaling factor applied to
                       // the visual viewport relative to the `ideal
