@@ -135,8 +135,8 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
     bar will stay above the keyboard, but if the user zooms in it will remain in its original position.
   * [Fixed to viewport](https://rawgit.com/WICG/ViewportAPI/master/examples/fixed-to-viewport.html): Simulates position:
     device-fixed by keeping a bar fixed to the visual viewport.
-  * [Fixed to viewport (absolute)](https://rawgit.com/WICG/ViewportAPI/master/examples/absolute-fixed-to-viewport.html): Same as
-    above but accomplished with position: absolute on the bar.
+  * [Fixed to viewport (absolute)](https://rawgit.com/WICG/ViewportAPI/master/examples/absolute-fixed-to-viewport.html):
+    Uses position: absolute to accomplish a position: sticky type effect that works with pinch-zoom.
 
 ### Polyfill (Work-in-Progress!)
 
