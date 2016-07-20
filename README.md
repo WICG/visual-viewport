@@ -145,5 +145,5 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
   [visualViewport.js](https://github.com/WICG/ViewportAPI/blob/master/polyfill/visualViewport.js)
   and you can see two examples that use it in the same directory:
 
-  * [position: device-fixed with position: fixed](https://github.com/WICG/ViewportAPI/blob/master/polyfill/vvapi-fix.html)
-  * [position: device-fixed with position: absolute](https://github.com/WICG/ViewportAPI/blob/master/polyfill/vvapi-abs.html)
+  * [position: device-fixed with position: fixed](https://rawgit.com/WICG/ViewportAPI/polyfill/vvapi-fix.html)
+  * [position: device-fixed with position: absolute](https://rawgit.com/WICG/ViewportAPI/polyfill/vvapi-abs.html)
