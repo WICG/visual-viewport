@@ -109,7 +109,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
         bottomBar.style.transform = 'translate(' +
                                     offsetX + 'px,' +
                                     offsetY + 'px) ' +
-                                    'scale(' + 1/viewport.pageScale + ')'
+                                    'scale(' + 1/viewport.scale + ')'
     }
     window.visualViewport.addEventListener('scroll', viewportHandler);
     window.visualViewport.addEventListener('resize', viewportHandler);
