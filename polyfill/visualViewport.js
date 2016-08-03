@@ -40,6 +40,12 @@ function registerChangeHandlers() {
     window.addEventListener('resize', updateViewportChanged, {'passive': true});
 }
 
+var isChrome = navigator.userAgent.indexOf('Chrome') > -1;
+var isSafari = navigator.userAgent.indexOf("Safari") > -1;
+
+if ((isChrome)&&(isSafari))
+    isSafari=false;
+
 if (window.visualViewport) {
     console.log('Using real visual viewport API');
 } else {
@@ -47,7 +53,11 @@ if (window.visualViewport) {
     var layoutDummy = document.createElement('div');
     layoutDummy.style.width = "100%";
     layoutDummy.style.height = "100%";
-    layoutDummy.style.position = "absolute";
+    if (isSafari) {
+        layoutDummy.style.position = "fixed";
+    } else {
+        layoutDummy.style.position = "absolute";
+    }
     layoutDummy.style.left = "0px";
     layoutDummy.style.top = "0px";
     layoutDummy.style.visibility = "hidden";
@@ -72,10 +82,20 @@ if (window.visualViewport) {
 
         var viewport = {
           get scrollLeft() {
-            return window.scrollX + layoutDummy.getBoundingClientRect().left;
+            if (isSafari) {
+              // Note: Safari's getBoundingClientRect left/top is wrong when pinch-zoomed requiring this "unscaling".
+              return window.scrollX - (layoutDummy.getBoundingClientRect().left * this.scale + window.scrollX * this.scale);
+            } else {
+              return window.scrollX + layoutDummy.getBoundingClientRect().left;
+            }
           },
           get scrollTop() {
-            return window.scrollY + layoutDummy.getBoundingClientRect().top;
+            if (isSafari) {
+              // Note: Safari's getBoundingClientRect left/top is wrong when pinch-zoomed requiring this "unscaling".
+              return window.scrollY - (layoutDummy.getBoundingClientRect().top * this.scale + window.scrollY * this.scale);
+            } else {
+              return window.scrollY + layoutDummy.getBoundingClientRect().top;
+            }
           },
           get clientWidth() {
             return window.innerWidth - 15;
