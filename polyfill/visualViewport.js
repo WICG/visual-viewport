@@ -1,3 +1,30 @@
+function updateUnscaledDimensions() {
+  // This is hacky but necessary in order to get the innerWidth/Height without
+  // page scale applied reliably. We remove the content from the main frame,
+  // replace it with an iframe and put the content into that. We then take the
+  // innerWidth and Height from the iframe and undo everything.
+  var documentElement = document.removeChild(document.documentElement);
+  var iframe = document.createElement('iframe');
+  iframe.style.position="fixed";
+  iframe.style.width="100%";
+  iframe.style.height="100%";
+  iframe.style.left="0px";
+  iframe.style.top="0px";
+  iframe.style.border="0";
+
+  document.appendChild(document.createElement('html'));
+  document.documentElement.appendChild(document.createElement('body'));
+  document.body.appendChild(iframe);
+
+  iframe.contentDocument.replaceChild(documentElement, iframe.contentDocument.documentElement);
+
+  window.visualViewportPolyfill.unscaledInnerWidth = iframe.contentWindow.innerWidth;
+  window.visualViewportPolyfill.unscaledInnerHeight = iframe.contentWindow.innerHeight;
+
+  documentElement = iframe.contentDocument.removeChild(iframe.contentDocument.documentElement);
+  document.replaceChild(documentElement, document.documentElement);
+}
+
 function fireScrollEvent() {
   var listeners = window.visualViewportPolyfill.scrollEventListeners;
   for (var i = 0; i < listeners.length; i++)
@@ -38,10 +65,17 @@ function updateViewportChanged() {
 function registerChangeHandlers() {
     window.addEventListener('scroll', updateViewportChanged, {'passive': true});
     window.addEventListener('resize', updateViewportChanged, {'passive': true});
+    window.addEventListener('resize', updateUnscaledDimensions, {'passive': true});
 }
 
 var isChrome = navigator.userAgent.indexOf('Chrome') > -1;
 var isSafari = navigator.userAgent.indexOf("Safari") > -1;
+var isIEEdge = navigator.userAgent.indexOf('Edge') > -1;
+
+var unscaledViewport = window.outerWidth;
+if (isIEEdge) {
+    unscaledViewport = window.innerWidth;
+}
 
 if ((isChrome)&&(isSafari))
     isSafari=false;
@@ -70,10 +104,13 @@ if (window.visualViewport) {
       "scaleSinceLastChange": null,
       "scrollEventListeners": [],
       "resizeEventListeners": [],
-      "layoutDummy": layoutDummy
+      "layoutDummy": layoutDummy,
+      "unscaledInnerWidth": 0,
+      "unscaledInnerHeight": 0
     }
 
     registerChangeHandlers();
+    updateUnscaledDimensions();
 
     // TODO: Need to wait for <body> to be loaded but this is probably
     // later than needed.
@@ -98,13 +135,47 @@ if (window.visualViewport) {
             }
           },
           get clientWidth() {
-            return window.innerWidth - 15;
+            var clientWidth = document.documentElement.clientWidth;
+            if (isIEEdge) {
+                // If there's no scrollbar before pinch-zooming, Edge will add
+                // a non-layout-affecting overlay scrollbar. This won't be
+                // reflected in documentElement.clientWidth so we need to
+                // manually subtract it out.
+                if (document.documentElement.clientWidth == window.visualViewportPolyfill.unscaledInnerWidth
+                    && this.scale > 1) {
+                    var oldWidth = document.documentElement.clientWidth;
+                    var prevHeight = layoutDummy.style.height;
+                    // Lengthen the dummy to add a layout vertical scrollbar.
+                    layoutDummy.style.height = "200%";
+                    var scrollbarWidth = oldWidth - document.documentElement.clientWidth;
+                    layoutDummy.style.width = prevHeight;
+                    clientWidth -= scrollbarWidth;
+                }
+            }
+            return clientWidth / this.scale;
           },
           get clientHeight() {
-            return window.innerHeight - 15;
+            var clientHeight = document.documentElement.clientHeight;
+            if (isIEEdge) {
+                // If there's no scrollbar before pinch-zooming, Edge will add
+                // a non-layout-affecting overlay scrollbar. This won't be
+                // reflected in documentElement.clientHeight so we need to
+                // manually subtract it out.
+                if (document.documentElement.clientHeight == window.visualViewportPolyfill.unscaledInnerHeight
+                    && this.scale > 1) {
+                    var oldHeight = document.documentElement.clientHeight;
+                    var prevWidth = layoutDummy.style.width;
+                    // Widen the dummy to add a layout horizontal scrollbar.
+                    layoutDummy.style.width = "200%";
+                    var scrollbarHeight = oldHeight - document.documentElement.clientHeight;
+                    layoutDummy.style.width = prevWidth;
+                    clientHeight -= scrollbarHeight;
+                }
+            }
+            return clientHeight / this.scale;
           },
           get scale() {
-            return window.outerWidth / window.innerWidth;
+            return window.visualViewportPolyfill.unscaledInnerWidth / window.innerWidth;
           },
           get pageX() {
             return window.scrollX;

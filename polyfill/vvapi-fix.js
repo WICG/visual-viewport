@@ -1,5 +1,6 @@
 var bottomBar;
 var viewport;
+var layoutViewportElement;
 
 window.addEventListener('load', function() {
     bottomBar = document.getElementById('bottombar');
