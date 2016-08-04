@@ -140,9 +140,9 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
   * [Fixed to viewport (absolute)](https://rawgit.com/WICG/ViewportAPI/master/examples/absolute-fixed-to-viewport.html):
     Uses position: absolute to accomplish a position: sticky type effect that works with pinch-zoom.
 
-### Polyfill (Work-in-Progress!)
+### Polyfill
 
-  We've added a rudimentary polyfill that should work across browsers (Safari is still WIP), albeit with worse
+  We've added a rudimentary polyfill that should work across browsers, albeit with worse
   performance properties (requires polling). The polyfill itself is
   [visualViewport.js](https://github.com/WICG/ViewportAPI/blob/master/polyfill/visualViewport.js)
   and you can see two examples that use it in the same directory:
