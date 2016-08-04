@@ -28,7 +28,7 @@ In order to make this transition we propose adding a new explicit API for the vi
 
 The new API is also easy to feature detect and polyfilling this behavior should be fairly straightforward.
 
-## Proposed API
+## Proposed API (v1)
 
   * Add a `visualViewport` object on `window`.
 
