@@ -1,28 +1,38 @@
+// This is hacky but necessary in order to get the innerWidth/Height without
+// page scale applied reliably.
 function updateUnscaledDimensions() {
-  // This is hacky but necessary in order to get the innerWidth/Height without
-  // page scale applied reliably. We remove the content from the main frame,
-  // replace it with an iframe and put the content into that. We then take the
-  // innerWidth and Height from the iframe and undo everything.
-  var documentElement = document.removeChild(document.documentElement);
-  var iframe = document.createElement('iframe');
-  iframe.style.position="fixed";
-  iframe.style.width="100%";
-  iframe.style.height="100%";
-  iframe.style.left="0px";
-  iframe.style.top="0px";
-  iframe.style.border="0";
+  if (!window.visualViewportPolyfill.iframeDummy) {
+      var iframe = document.createElement('iframe');
+      iframe.style.position="absolute";
+      iframe.style.width="100%";
+      iframe.style.height="100%";
+      iframe.style.left="0px";
+      iframe.style.top="0px";
+      iframe.style.border="0";
+      iframe.style.visibility="hidden";
+      iframe.srcdoc = "<!DOCTYPE html><html><body style='margin:0px; padding:0px'></body></html>";
 
-  document.appendChild(document.createElement('html'));
-  document.documentElement.appendChild(document.createElement('body'));
-  document.body.appendChild(iframe);
+      document.body.appendChild(iframe);
+      window.visualViewportPolyfill.iframeDummy = iframe;
+  }
 
-  iframe.contentDocument.replaceChild(documentElement, iframe.contentDocument.documentElement);
+  var iframe = window.visualViewportPolyfill.iframeDummy;
 
-  window.visualViewportPolyfill.unscaledInnerWidth = iframe.contentWindow.innerWidth;
-  window.visualViewportPolyfill.unscaledInnerHeight = iframe.contentWindow.innerHeight;
+  var documentRect = document.documentElement.getBoundingClientRect();
+  var iframeBody = iframe.contentDocument.body;
+  iframeBody.style.width = documentRect.width + 'px';
+  iframeBody.style.height = documentRect.height + 'px';
 
-  documentElement = iframe.contentDocument.removeChild(iframe.contentDocument.documentElement);
-  document.replaceChild(documentElement, document.documentElement);
+  // Hide overflow temporarily so that the iframe size isn't shrunk by
+  // scrollbars.
+  var prevDocumentOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
+
+  var iframeWindow = window.visualViewportPolyfill.iframeDummy.contentWindow;
+  window.visualViewportPolyfill.unscaledInnerWidth = iframeWindow.innerWidth;
+  window.visualViewportPolyfill.unscaledInnerHeight = iframeWindow.innerHeight;
+
+  document.documentElement.style.overflow = prevDocumentOverflow;
 }
 
 function fireScrollEvent() {
@@ -39,13 +49,13 @@ function fireResizeEvent() {
 
 function updateViewportChanged() {
     var scrollChanged =
-        window.visualViewportPolyfill.scrollLeftSinceLastChange == window.visualViewport.scrollLeft ||
-        window.visualViewportPolyfill.scrollTopSinceLastChange == window.visualViewport.scrollTop;
+        window.visualViewportPolyfill.scrollLeftSinceLastChange != window.visualViewport.scrollLeft ||
+        window.visualViewportPolyfill.scrollTopSinceLastChange != window.visualViewport.scrollTop;
 
     var sizeChanged =
-        window.visualViewportPolyfill.clientWidthSinceLastChange == window.visualViewport.clientWidth ||
-        window.visualViewportPolyfill.clientHeightSinceLastChange == window.visualViewport.clientHeight ||
-        window.visualViewportPolyfill.scaleSinceLastChange == window.visualViewport.scale;
+        window.visualViewportPolyfill.clientWidthSinceLastChange != window.visualViewport.clientWidth ||
+        window.visualViewportPolyfill.clientHeightSinceLastChange != window.visualViewport.clientHeight ||
+        window.visualViewportPolyfill.scaleSinceLastChange != window.visualViewport.scale;
 
     window.visualViewportPolyfill.scrollLeftSinceLastChange = window.visualViewport.scrollLeft;
     window.visualViewportPolyfill.scrollTopSinceLastChange = window.visualViewport.scrollTop;
@@ -105,16 +115,17 @@ if (window.visualViewport) {
       "scrollEventListeners": [],
       "resizeEventListeners": [],
       "layoutDummy": layoutDummy,
+      "iframeDummy": null,
       "unscaledInnerWidth": 0,
       "unscaledInnerHeight": 0
     }
 
     registerChangeHandlers();
-    updateUnscaledDimensions();
 
     // TODO: Need to wait for <body> to be loaded but this is probably
     // later than needed.
     window.addEventListener('load', function() {
+        updateUnscaledDimensions();
         document.body.appendChild(layoutDummy);
 
         var viewport = {
