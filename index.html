@@ -95,7 +95,7 @@
           the properties associated with that <code>window</code>.
         </p>
         <pre class="idl">
-          interface VisualViewport {
+          interface VisualViewport : EventTarget {
             readonly attribute double scrollTop;
             readonly attribute double scrollLeft;
 
@@ -159,13 +159,18 @@
         <h4>Resizing the viewport</h4>
         <p>
           If the viewport's width or height is changed (e.g. in response to user interaction), the user agent must
-          fire an event named <code>resize</code> on the <code>window.visualViewport</code> object.
-          This event may be fired asynchronously.
+          fire an event named <code>resize</code> on the <code>window.visualViewport</code> object. It follows the
+          procedure defined in
+          <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#resizing-viewports">section 12.1</a>
+          of the CSSOM View module.
         </p>
         <h4>Scrolling</h4>
         <p>
-          Whenever the visual viewport gets scrolled (e.g. in response to user interaction or by an API), the user agent must fire an event named <code>scroll</code> on the <code>window.visualViewport</code> object.
-          This event may be fired asynchronously.
+          Whenever the visual viewport gets scrolled (e.g. in response to user interaction or by an API), the user
+          agent must fire an event named <code>scroll</code> on the <code>window.visualViewport</code> object. It
+          follows the procedure defined in
+          <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#scrolling-events">section 12.2</a>
+          of the CSSOM View module.
         </p>
       </section>
     </section>
