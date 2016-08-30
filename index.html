@@ -36,6 +36,8 @@
                 }
              ]
           }],
+          wg: "Web Platform Incubator Community Group",
+          wgURI: "https://www.w3.org/community/wicg/",
       };
     </script>
   </head>
@@ -63,7 +65,7 @@
         <code>position: fixed</code> elements. As another example, mobile UAs often provide an <em>on-screen
         keyboard</em> (OSK) for user input. Without the visual/layout split, a <code>position: fixed</code>
         element would be pushed up when the OSK is shown, obscuring the user's view. Informally,
-        the layout viewport is what the web page uses when laying out it's UI while the visual viewport
+        the layout viewport is what the web page uses when laying out its UI while the visual viewport
         is the box on the page that the user can currently see, accounting for transient UI features like
         pinch-zoom and the OSK.
       </p>
@@ -82,7 +84,7 @@
         The Visual Viewport API is designed to provide an explicit mechanism for developers to query and
         potentially modify the properties of the visual viewport. It also introduces events that allow the
         page to listen for changes in the visual viewport, allowing UX that explicitly wants to react to
-        these changes to do so. For example, keeping a small text-formatting bar above the OSK.
+        these changes to do so. For example, the page could keep a small text-formatting bar above the OSK.
       </p>
     </section>
     <section>
