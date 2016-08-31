@@ -8,7 +8,7 @@ _Update: Chrome has an experimental implementation as of version 51.0.2700.0 whi
 
 ## Draft Spec
 
-[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/index.html) - Still in-progress.
+[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/spec.html) - Still in-progress.
 
 ## Background
 
