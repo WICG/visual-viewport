@@ -118,20 +118,20 @@
         <dl>
           <dt><dfn>scrollTop</dfn></dt>
           <dd>
-            Returns the distance from the top edge of the visual viewport to the top edge of the layout viewport.
+            Returns the location of the top edge of the visual viewport relative to the top edge of the layout viewport in CSS pixels.
           </dd>
           <dt><dfn>scrollLeft</dfn></dt>
           <dd>
-            Returns the distance from the left edge of the visual viewport to the left edge of the layout viewport.
+            Returns the location of the left edge of the visual viewport relative to the left edge of the layout viewport in CSS pixels.
           </dd>
 
           <dt><dfn>pageX</dfn></dt>
           <dd>
-            Returns the location of the left edge of the visual viewport from the left edge of the document.
+            Returns the x-coordinate, relative to the <a href="https://drafts.csswg.org/css-display-3/#initial-containing-block">initial containing block</a> origin, of the left of the visual viewport in CSS pixels.
           </dd>
           <dt><dfn>pageY</dfn></dt>
           <dd>
-            Returns the location of the top edge of the visual viewport from the top edge of the document.
+            Returns the y-coordinate, relative to the  <a href="https://drafts.csswg.org/css-display-3/#initial-containing-block">initial containing block</a> origin, of the top of the visual viewport in CSS pixels.
           </dd>
 
           <dt><dfn>clientWidth</dfn></dt>
@@ -179,7 +179,19 @@
           <a data-link-type="dfn" href="https://drafts.csswg.org/cssom-view/#scrolling-events">section 12.2</a>
           of the CSSOM View module.
         </p>
+        <p>
+          This event should also be fired if a resize of the visual viewport causes either the
+          <a href="#dom-visualviewport-scrolltop" id="ref-for-scrollTop-1">scrollTop</a> or
+          <a href="#dom-visualviewport-scrollleft" id="ref-for-scrollLeft-1">scrollLeft</a> values to change.
+        </p>
       </section>
     </section>
+
+    <h2 id="references">References</h2>
+    <h3 id="normative">Normative References</h3>
+    <dl>
+      <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
+      <dd>Simon Pieters. <a href="https://drafts.csswg.org/cssom-view/">CSSOM View Module</a>. 17 March 2016. WD. URL: <a href="https://drafts.csswg.org/cssom-view/">https://drafts.csswg.org/cssom-view/</a>
+    </dl>
   </body>
 </html>
