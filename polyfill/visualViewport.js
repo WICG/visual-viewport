@@ -82,11 +82,6 @@ var isChrome = navigator.userAgent.indexOf('Chrome') > -1;
 var isSafari = navigator.userAgent.indexOf("Safari") > -1;
 var isIEEdge = navigator.userAgent.indexOf('Edge') > -1;
 
-var unscaledViewport = window.outerWidth;
-if (isIEEdge) {
-    unscaledViewport = window.innerWidth;
-}
-
 if ((isChrome)&&(isSafari))
     isSafari=false;
 
