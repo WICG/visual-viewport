@@ -2,7 +2,7 @@
 
 ## tl;dr
 
-We propose adding a `visualViewport` object on `window` that contains the properties of the visual viewport.
+We propose adding a `visualViewport` object on `window` that contains the properties of the visual viewport.  We're incubating this idea via the WICG in order to try to make incremental progress on the long-standing problem of exposing features like pinch-zoom to web developers in a rational way.  We are working with the CSSWG to eventually get [these ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features of the web platform.
 
 _Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for implementation details_
 
