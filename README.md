@@ -8,7 +8,7 @@ _Update: Chrome has an experimental implementation as of version 51.0.2700.0 whi
 
 ## Draft Spec
 
-[Draft Spec](https://rawgit.com/WICG/ViewportAPI/master/spec.html) - Still in-progress.
+[Draft Spec](https://wicg.github.io/ViewportAPI/spec.html) - Still in-progress.
 
 ## Background
 
@@ -61,7 +61,7 @@ visualViewport = {
 
 Here's how an author might use this API to simulate `position: device-fixed`, which fixes elements to the visual viewport.
 
-[Live example from below](https://rawgit.com/WICG/ViewportAPI/master/example.html)
+[Live example from below](https://wicg.github.io/ViewportAPI/example.html)
 
 ```html
 <meta name="viewport" content="width=device-width">
@@ -128,16 +128,16 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
 
 ### Links
 
-  * [Hide on Zoom](https://rawgit.com/WICG/ViewportAPI/master/examples/hide-on-zoom.html): Overlays a position: fixed
+  * [Hide on Zoom](https://wicg.github.io/ViewportAPI/examples/hide-on-zoom.html): Overlays a position: fixed
     box in the viewport (e.g. an ad) but hides to improve the UX when the user zooms in.
-  * [Fixed to keyboard](https://rawgit.com/WICG/ViewportAPI/master/examples/fixed-to-keyboard.html): Keeps a bar (e.g.
+  * [Fixed to keyboard](https://wicg.github.io/ViewportAPI/examples/fixed-to-keyboard.html): Keeps a bar (e.g.
     text formatting toolbar) fixed to the keyboard when it comes up.
-  * [Fixed to keyboard (No Zoom)](https://rawgit.com/WICG/ViewportAPI/master/examples/fixed-to-keyboard-no-zoom.html):
+  * [Fixed to keyboard (No Zoom)](https://wicg.github.io/ViewportAPI/examples/fixed-to-keyboard-no-zoom.html):
     Same as above but makes the bar behave like position: fixed rather than position: device-fixed. That is, the
     bar will stay above the keyboard, but if the user zooms in it will remain in its original position.
-  * [Fixed to viewport](https://rawgit.com/WICG/ViewportAPI/master/examples/fixed-to-viewport.html): Simulates position:
+  * [Fixed to viewport](https://wicg.github.io/ViewportAPI/examples/fixed-to-viewport.html): Simulates position:
     device-fixed by keeping a bar fixed to the visual viewport.
-  * [Fixed to viewport (absolute)](https://rawgit.com/WICG/ViewportAPI/master/examples/absolute-fixed-to-viewport.html):
+  * [Fixed to viewport (absolute)](https://wicg.github.io/ViewportAPI/examples/absolute-fixed-to-viewport.html):
     Uses position: absolute to accomplish a position: sticky type effect that works with pinch-zoom.
 
 ### Polyfill
@@ -145,8 +145,8 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
   TODO: Doesn't work on iOS Safari yet.
   We've added a rudimentary polyfill that should work across browsers, albeit with worse
   performance properties (requires polling and ugly hacks). The polyfill itself is
-  [visualViewport.js](https://github.com/WICG/ViewportAPI/blob/master/polyfill/visualViewport.js)
+  [visualViewport.js](https://github.com/WICG/ViewportAPI/polyfill/visualViewport.js)
   and you can see two examples that use it in the same directory:
 
-  * [position: device-fixed with position: fixed](https://rawgit.com/WICG/ViewportAPI/master/polyfill/vvapi-fix.html)
-  * [position: device-fixed with position: absolute](https://rawgit.com/WICG/ViewportAPI/master/polyfill/vvapi-abs.html)
+  * [position: device-fixed with position: fixed](https://wicg.github.io/ViewportAPI/polyfill/vvapi-fix.html)
+  * [position: device-fixed with position: absolute](https://wicg.github.io/ViewportAPI/polyfill/vvapi-abs.html)
