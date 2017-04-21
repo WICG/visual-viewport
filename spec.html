@@ -145,6 +145,11 @@
               A scrollbar that is fixed to the visual viewport is one that does
               not change size or location as the visual viewport is zoomed and
               panned.
+
+              Because this value is in CSS pixels, when excluding the scrollbar
+              width the UA must account for how large the scrollbar is in CSS
+              pixels. That is, the amount excluded is lessened if the viewport
+              is zoomed in and the scrollbars don't change size to the user.
             </div>
           </dd>
           <dt><dfn>clientHeight</dfn></dt>
