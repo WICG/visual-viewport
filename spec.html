@@ -136,13 +136,23 @@
 
           <dt><dfn>clientWidth</dfn></dt>
           <dd>
-            Returns the width of the visual viewport in CSS pixels, excluding the width of any rendered scrollbar
-            if present.
+            Returns the width of the visual viewport in CSS pixels. This value
+            excludes the width of any rendered
+            <a class="property" data-link-type="propdesc" href="https://drafts.csswg.org/css-overflow-4/#classic-scrollbars">classic scrollbar</a>
+            <a data-link-type="biblio" href="#biblio-css-overflow-4">[CSS-OVERFLOW-4]</a> that is
+            fixed to the visual viewport.
+            <div class="note">
+              A scrollbar that is fixed to the visual viewport is one that does
+              not change size or location as the visual viewport is zoomed and
+              panned.
+            </div>
           </dd>
           <dt><dfn>clientHeight</dfn></dt>
           <dd>
-            Returns the height of the visual viewport in CSS pixels, excluding the height of any rendered scrollbar
-            if present.
+            Returns the height of the visual viewport in CSS pixels. This value
+            excludes the height of any rendered
+            <a class="property" data-link-type="propdesc" href="https://drafts.csswg.org/css-overflow-4/#classic-scrollbars">classic scrollbar</a>
+            that is fixed to the visual viewport.
             <div class="note">
               Because both the clientWidth and clientHeight attributes are expressed in CSS pixels, increasing either
               browser-zoom or pinch-zoom will cause these values to shrink.
@@ -182,11 +192,35 @@
       </section>
     </section>
 
+    <h2 class="no-num no-ref heading settled" id="index">
+      <span class="content">Index</span>
+      <a class="self-link" href="#index"></a>
+    </h2>
+    <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere">
+      <span class="content">Terms defined by reference</span>
+      <a class="self-link" href="#index-defined-elsewhere"></a>
+    </h3>
+    <ul class="index">
+      <li>
+        <a data-link-type="biblio">[css-overflow-4]</a> defines the following terms:
+        <ul>
+          <li>
+            <a href="https://drafts.csswg.org/css-overflow-4/#classic-scrollbars">classic scrollbars</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
     <h2 id="references">References</h2>
     <h3 id="normative">Normative References</h3>
     <dl>
       <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
       <dd>Simon Pieters. <a href="https://drafts.csswg.org/cssom-view/">CSSOM View Module</a>. 17 March 2016. WD. URL: <a href="https://drafts.csswg.org/cssom-view/">https://drafts.csswg.org/cssom-view/</a>
     </dl>
+    <dl>
+      <dt id="biblio-css-overflow-4">[CSS-OVERFLOW-4]
+      <dd>L. David Baron, Florian Rivoal <a href="https://drafts.csswg.org/cssom-view/">CSS Overflow Module Level 4</a>. 21 April 2017. ED. URL: <a href="https://drafts.csswg.org/css-overflow-4/">https://drafts.csswg.org/css-overflow-4/</a>
+    </dl>
+
   </body>
 </html>
