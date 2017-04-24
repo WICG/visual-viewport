@@ -165,13 +165,28 @@
           </dd>
           <dt><dfn>scale</dfn></dt>
           <dd>
-            Returns the zoom factor applied to the visual viewport. This is the ratio of CSS pixels to device
-            pixels derived from the visual viewport.
+            Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
+
+            <ol>
+              <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
+              <li data-md>
+                <p>
+                  Let <var>CSS pixel size</var> be the size of a CSS <a class="property" data-link-type="propdesc" href="https://www.w3.org/TR/css3-values/#reference-pixel">reference pixel</a>
+                  at the current <a class="property" data-link-type="propdesc" href="https://drafts.csswg.org/cssom-view/#page-zoom">page zoom</a> and
+                  <a class="property" data-link-type="propdesc" href="https://drafts.csswg.org/cssom-view/#pinch-zoom">pinch zoom</a> scales.
+                </p>
+              </li>
+              <li data-md><p>Let <var>device pixel size</var> be the size of a device pixel of the output device.</p></li>
+              <li data-md>
+                <p>
+                  Let <var>device independent pixel size</var> be the product of <var>device pixel size</var> and the
+                  <a class="property" data-link-type="propdesc" href="https://drafts.csswg.org/cssom-view/#dom-window-devicepixelratio">devicePixelRatio</a>
+                </p>
+              </li>
+              <li data-md><p>Return the result of dividing the <var>CSS pixel size</var> by the <var>device independent pixel size</var>.</li>
+            </ol>
             <div class="note">
-              This is distinct from the CSS pixel to device pixel ratio introduced via browser zoom. Both zooms
-              affect the total CSS pixel to device pixel ratio; however, browser zoom does so by shrinking the
-              layout viewport as browser zoom increases, causing the page to reflow. Pinch-zoom does so by shrinking
-              the visual viewport as scale increases, which does not reflow the page.
+              Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in a focused edit box.
             </div>
           </dd>
         </dl>
@@ -214,18 +229,29 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a data-link-type="biblio">[css-values-3]</a> defines the following terms:
+        <ul>
+          <li>
+            <a href="https://www.w3.org/TR/css3-values/#reference-pixel">reference pixel</a>
+          </li>
+        </ul>
+      </li>
     </ul>
 
     <h2 id="references">References</h2>
     <h3 id="normative">Normative References</h3>
     <dl>
-      <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
+      <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]</dt>
       <dd>Simon Pieters. <a href="https://drafts.csswg.org/cssom-view/">CSSOM View Module</a>. 17 March 2016. WD. URL: <a href="https://drafts.csswg.org/cssom-view/">https://drafts.csswg.org/cssom-view/</a>
     </dl>
     <dl>
-      <dt id="biblio-css-overflow-4">[CSS-OVERFLOW-4]
-      <dd>L. David Baron, Florian Rivoal <a href="https://drafts.csswg.org/cssom-view/">CSS Overflow Module Level 4</a>. 21 April 2017. ED. URL: <a href="https://drafts.csswg.org/css-overflow-4/">https://drafts.csswg.org/css-overflow-4/</a>
+      <dt id="biblio-css-overflow-4">[CSS-OVERFLOW-4]</dt>
+      <dd>L. David Baron; Florian Rivoal <a href="https://drafts.csswg.org/cssom-view/">CSS Overflow Module Level 4</a>. 21 April 2017. ED. URL: <a href="https://drafts.csswg.org/css-overflow-4/">https://drafts.csswg.org/css-overflow-4/</a>
     </dl>
+    <dt id="biblio-css-values-3">[CSS-VALUES-3]</dt>
+    <dd>Tab Atkins Jr.; fantasai <a href="https://www.w3.org/TR/css3-values/">CSS Values and Units Module Level 3</a>. 29 September 2016. CR. URL: <a href="https://www.w3.org/TR/css3-values/">https://www.w3.org/TR/css3-values/</a>
+    </dd>
 
   </body>
 </html>
