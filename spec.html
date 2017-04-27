@@ -104,6 +104,9 @@
             readonly attribute double height;
 
             readonly attribute double scale;
+
+            attribute EventHandler onresize;
+            attribute EventHandler onscroll;
           };
         </pre>
         <pre class="idl">
@@ -191,16 +194,18 @@
         <h3>Events</h3>
         <h4>Resizing the viewport</h4>
         <p>
-          The user agent must fire an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">Event</a> named <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#eventdef-window-resize"><code>resize</code></a> at the <code>window.view</code> object if any of the <a href="#dom-visualviewport-height">height</a>, <a href="#dom-visualviewport-width">width</a>, or <a href="#dom-visualviewport-scale">scale</a> attributes change (e.g. in response to user interaction).
-          The resize event must not bubble and must not be cancellable.
+          The user agent must fire an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">Event</a> named <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#eventdef-window-resize"><code>resize</code></a>
+          at the <code>window.view</code> object if any of the <a href="#dom-visualviewport-height">height</a>, <a href="#dom-visualviewport-width">width</a>, or <a href="#dom-visualviewport-scale">scale</a> attributes change (e.g. in
+          response to user interaction). The resize event must not bubble and must not be cancellable.
         </p>
         <p>
           These events follow the procedure defined in <a data-link-type="dfn" href="https://drafts.csswg.org/cssom-view/#resizing-viewports">section 12.1</a> of the CSSOM View module.
         </p>
         <h4>Scrolling</h4>
         <p>
-          The user agent must fire an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">Event</a> named <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#eventdef-document-scroll"><code>scroll</code></a> at the <code>window.view</code> object if either the <a href="#dom-visualviewport-scrolltop">scrollTop</a> or <a href="#dom-visualviewport-scrollleft">scrollLeft</a> attributes change (e.g in response to user interaction, by an API, or by the resize of the visual viewport).
-          The scroll event must not bubble and must not be cancellable.
+          The user agent must fire an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">Event</a> named <a data-link-type="dfn" href="https://www.w3.org/TR/cssom-view-1/#eventdef-document-scroll"><code>scroll</code></a>
+          at the <code>window.view</code> object if either the <a href="#dom-visualviewport-scrolltop">scrollTop</a> or <a href="#dom-visualviewport-scrollleft">scrollLeft</a> attributes change (e.g in response to user interaction, by an API,
+          or by the resize of the visual viewport). The scroll event must not bubble and must not be cancellable.
         </p>
         <p>
           These events follow the procedure defined in
