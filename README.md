@@ -2,9 +2,19 @@
 
 ## tl;dr
 
-We propose adding a `visualViewport` object on `window` that contains the properties of the visual viewport.  We're incubating this idea via the WICG in order to try to make incremental progress on the long-standing problem of exposing features like pinch-zoom to web developers in a rational way.  We are working with the CSSWG to eventually get [these ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features of the web platform.
+We propose adding a `view` object on `window` that contains the properties of
+the visual viewport.  We're incubating this idea via the WICG in order to try
+to make incremental progress on the long-standing problem of exposing features
+like pinch-zoom to web developers in a rational way.  We are working with the
+CSSWG to eventually get [these
+ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant
+specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features
+of the web platform.
 
-_Update: Chrome has an experimental implementation as of version 51.0.2700.0 which can be enabled via the "enable-experimental-web-platform-features" flag in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for implementation details_
+_Update: Chrome has an experimental implementation as of version 51.0.2700.0
+which can be enabled via the "enable-experimental-web-platform-features" flag
+in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for
+implementation details_
 
 ## Draft Spec
 
@@ -12,38 +22,74 @@ _Update: Chrome has an experimental implementation as of version 51.0.2700.0 whi
 
 ## Background
 
-The mobile web contains two viewports, the Layout and Visual viewport. The Layout viewport is what a page lays out its elements into(*) and the Visual viewport is what is actually visible on the screen. When the user pinch-zooms into the page, the visual viewport shrinks but the layout viewport is unchanged. UI like the on-screen keyboard (OSK) can also shrink the visual viewport without affecting the layout viewport. See this [demo](http://bokand.github.io/viewport/index.html) to visualize the two viewports. This isn't specified anywhere and implementations vary greatly between browsers.
+The mobile web contains two viewports, the Layout and Visual viewport. The
+Layout viewport is what a page lays out its elements into(*) and the Visual
+viewport is what is actually visible on the screen. When the user pinch-zooms
+into the page, the visual viewport shrinks but the layout viewport is
+unchanged. UI like the on-screen keyboard (OSK) can also shrink the visual
+viewport without affecting the layout viewport. See this
+[demo](http://bokand.github.io/viewport/index.html) to visualize the two
+viewports. This isn't specified anywhere and implementations vary greatly
+between browsers.
 
-Currently, several CSSOM scroll properties are relative to the visual viewport (see [this](https://docs.google.com/document/d/1ZzzvA_AuMDa_nlwIc9PdpzfIXsgrOZDixFvEFwrfXJM/edit#) for list). Again, there is no spec governing this, but this is how browsers have it implemented today. With this implementation, the dimensions of the visual viewport can be easily determined (For example, window.innerHeight = visual viewport height). However, all other coordinates are generally relative to the layout viewport (e.g. getBoundingClientRects, elementFromPoint, event coordinates, etc.). Having these APIs be mixed is arbitrary and confusing.
+Currently, several CSSOM scroll properties are relative to the visual viewport
+(see
+[this](https://docs.google.com/document/d/1ZzzvA_AuMDa_nlwIc9PdpzfIXsgrOZDixFvEFwrfXJM/edit#)
+for list). Again, there is no spec governing this, but this is how browsers
+  have it implemented today. With this implementation, the dimensions of the
+  visual viewport can be easily determined (For example, window.innerHeight =
+  visual viewport height). However, all other coordinates are generally
+  relative to the layout viewport (e.g. getBoundingClientRects,
+  elementFromPoint, event coordinates, etc.). Having these APIs be mixed is
+  arbitrary and confusing.
 
-This confusion has caused many desktop sites to break when pinch-zoomed or when showing the OSK (see [this bug ](http://crbug.com/489206) for examples). This is because mobile browsers added new semantics to existing properties, expecting they'd to be invisible to desktop browsers. This becomes a problem as the lines between mobile and desktop blur and features like on-screen keyboard and pinch-zoom make their way to desktops, or when accessing desktop pages from mobile devices.
+This confusion has caused many desktop sites to break when pinch-zoomed or when
+showing the OSK (see [this bug ](http://crbug.com/489206) for examples). This
+is because mobile browsers added new semantics to existing properties,
+expecting they'd to be invisible to desktop browsers. This becomes a problem as
+the lines between mobile and desktop blur and features like on-screen keyboard
+and pinch-zoom make their way to desktops, or when accessing desktop pages from
+mobile devices.
 
-(*) - This isn't strictly true. In Chrome, the layout viewport is actually the "viewport at minimum scale". While on most well behaving pages this is the box that the page lays out into (i.e. the initial containing block), extra-wide elements or an explicit minimum-scale can change this. More specifically, the layout viewport is what position: fixed elements attach to.
+(*) - This isn't strictly true. In Chrome, the layout viewport is actually the
+"viewport at minimum scale". While on most well behaving pages this is the box
+that the page lays out into (i.e. the initial containing block), extra-wide
+elements or an explicit minimum-scale can change this. More specifically, the
+layout viewport is what position: fixed elements attach to.
 
 ## Proposed Plan
 
-We believe the best way forward is to change those remaining CSSOM scroll properties to be relative to the layout viewport. In fact, Chrome did this in M48 but, due to [developer feedback](http://crbug.com/571297), this change was reverted in M49. There was more reliance on this than anticipated.
+We believe the best way forward is to change those remaining CSSOM scroll
+properties to be relative to the layout viewport. In fact, Chrome did this in
+M48 but, due to [developer feedback](http://crbug.com/571297), this change was
+reverted in M49. There was more reliance on this than anticipated.
 
-In order to make this transition we propose adding a new explicit API for the visual viewport. With an explicit API, and after a sufficient transition period, we could once again change the CSSOM scroll properties to be relative to the layout viewport. This change would make sure existing desktop sites continue to function correctly as new UI features are added. At the same time, it would allow authors to use and customize those features where needed.
+In order to make this transition we propose adding a new explicit API for the
+visual viewport. With an explicit API, and after a sufficient transition
+period, we could once again change the CSSOM scroll properties to be relative
+to the layout viewport. This change would make sure existing desktop sites
+continue to function correctly as new UI features are added. At the same time,
+it would allow authors to use and customize those features where needed.
 
-The new API is also easy to feature detect and polyfilling this behavior should be fairly straightforward.
+The new API is also easy to feature detect and polyfilling this behavior should
+be fairly straightforward.
 
 ## Proposed API (v1)
 
-  * Add a `visualViewport` object on `window`.
+  * Add a `view` object on `window`.
 
 ```
-visualViewport = {
-    double scrollTop;  // Relative to the layout viewport
-    double scrollLeft; // and read-only.
+view = {
+    double offsetX; // Relative to the layout viewport
+    double offsetY; // and read-only.
 
     double pageX;  // Relative to the document
     double pageY;  // and read-only.
 
-    double clientWidth;  // Read-only and excludes the scrollbars
-    double clientHeight; // if present. These values give the number
-                         // of CSS pixels visible in the visual viewport.
-                         // i.e. they shrink as the user zooms in.
+    double width;  // Read-only and excludes the scrollbars
+    double height; // if present. These values give the number
+                   // of CSS pixels visible in the visual viewport.
+                   // i.e. they shrink as the user zooms in.
 
     double scale;     // Read-only. The scaling factor applied to
                       // the visual viewport relative to the `ideal
@@ -53,9 +99,9 @@ visualViewport = {
 }
 ```
 
-  * Fire a `scroll` event against `window.visualViewport` whenever the `scrollTop` or `scrollLeft` attributes change.
+  * Fire a `scroll` event against `window.view` whenever the `offsetX` or `offsetY` attributes change.
 
-  * Fire a `resize` event against `window.visualViewport` whenever the `clientWidth` or `clientHeight` attributes change.
+  * Fire a `resize` event against `window.view` whenever the `width` or `width` attributes change.
 
 ## Example
 
@@ -96,16 +142,16 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
 <script>
     var bottomBar = document.getElementById('bottombar');
-    var viewport = window.visualViewport;
+    var viewport = window.view;
     function viewportHandler() {
         var layoutViewport = document.getElementById('layoutViewport');
 
         // Since the bar is position: fixed we need to offset it by the visual
         // viewport's offset from the layout viewport origin.
-        var offsetX = viewport.scrollLeft;
-        var offsetY = viewport.clientHeight
+        var offsetX = viewport.offsetX;
+        var offsetY = viewport.height
                     - layoutViewport.getBoundingClientRect().height
-                    + viewport.scrollTop;
+                    + viewport.offsetY;
 
         // You could also do this by setting style.left and style.top if you
         // use width: 100% instead.
@@ -114,15 +160,15 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
                                     offsetY + 'px) ' +
                                     'scale(' + 1/viewport.scale + ')'
     }
-    window.visualViewport.addEventListener('scroll', viewportHandler);
-    window.visualViewport.addEventListener('resize', viewportHandler);
+    window.view.addEventListener('scroll', viewportHandler);
+    window.view.addEventListener('resize', viewportHandler);
 </script>
 ```
 ## Other Examples
 
 Here's a few other examples you can try out on Chrome Canary today. Be sure to turn on the following flags:
 
-  * chrome://flags/#enable-experimental-web-platform-features (Enable window.visualViewport)
+  * chrome://flags/#enable-experimental-web-platform-features (Enable window.view)
   * chrome://flags/#inert-visual-viewport (Makes window.scrollX|innerWidth and others refer to layout viewport)
   * chrome://flags/#enable-osk-overscroll (Makes keyboard resize visual viewport only)
 
