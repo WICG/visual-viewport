@@ -1,7 +1,7 @@
 // This is hacky but necessary in order to get the innerWidth/Height without
 // page scale applied reliably.
 function updateUnscaledDimensions() {
-  if (!window.visualViewportPolyfill.iframeDummy) {
+  if (!window.viewPolyfill.iframeDummy) {
       var iframe = document.createElement('iframe');
       iframe.style.position="absolute";
       iframe.style.width="100%";
@@ -13,10 +13,10 @@ function updateUnscaledDimensions() {
       iframe.srcdoc = "<!DOCTYPE html><html><body style='margin:0px; padding:0px'></body></html>";
 
       document.body.appendChild(iframe);
-      window.visualViewportPolyfill.iframeDummy = iframe;
+      window.viewPolyfill.iframeDummy = iframe;
   }
 
-  var iframe = window.visualViewportPolyfill.iframeDummy;
+  var iframe = window.viewPolyfill.iframeDummy;
 
   var documentRect = document.documentElement.getBoundingClientRect();
   var iframeBody = iframe.contentDocument.body;
@@ -28,40 +28,40 @@ function updateUnscaledDimensions() {
   var prevDocumentOverflow = document.documentElement.style.overflow;
   document.documentElement.style.overflow = "hidden";
 
-  var iframeWindow = window.visualViewportPolyfill.iframeDummy.contentWindow;
-  window.visualViewportPolyfill.unscaledInnerWidth = iframeWindow.innerWidth;
-  window.visualViewportPolyfill.unscaledInnerHeight = iframeWindow.innerHeight;
+  var iframeWindow = window.viewPolyfill.iframeDummy.contentWindow;
+  window.viewPolyfill.unscaledInnerWidth = iframeWindow.innerWidth;
+  window.viewPolyfill.unscaledInnerHeight = iframeWindow.innerHeight;
 
   document.documentElement.style.overflow = prevDocumentOverflow;
 }
 
 function fireScrollEvent() {
-  var listeners = window.visualViewportPolyfill.scrollEventListeners;
+  var listeners = window.viewPolyfill.scrollEventListeners;
   for (var i = 0; i < listeners.length; i++)
     listeners[i]();
 }
 
 function fireResizeEvent() {
-  var listeners = window.visualViewportPolyfill.resizeEventListeners;
+  var listeners = window.viewPolyfill.resizeEventListeners;
   for (var i = 0; i < listeners.length; i++)
     listeners[i]();
 }
 
 function updateViewportChanged() {
     var scrollChanged =
-        window.visualViewportPolyfill.scrollLeftSinceLastChange != window.visualViewport.scrollLeft ||
-        window.visualViewportPolyfill.scrollTopSinceLastChange != window.visualViewport.scrollTop;
+        window.viewPolyfill.offsetLeftSinceLastChange != window.view.offsetLeft ||
+        window.viewPolyfill.offsetTopSinceLastChange != window.view.offsetTop;
 
     var sizeChanged =
-        window.visualViewportPolyfill.clientWidthSinceLastChange != window.visualViewport.clientWidth ||
-        window.visualViewportPolyfill.clientHeightSinceLastChange != window.visualViewport.clientHeight ||
-        window.visualViewportPolyfill.scaleSinceLastChange != window.visualViewport.scale;
+        window.viewPolyfill.widthSinceLastChange != window.view.width ||
+        window.viewPolyfill.heightSinceLastChange != window.view.height ||
+        window.viewPolyfill.scaleSinceLastChange != window.view.scale;
 
-    window.visualViewportPolyfill.scrollLeftSinceLastChange = window.visualViewport.scrollLeft;
-    window.visualViewportPolyfill.scrollTopSinceLastChange = window.visualViewport.scrollTop;
-    window.visualViewportPolyfill.clientWidthSinceLastChange = window.visualViewport.clientWidth;
-    window.visualViewportPolyfill.clientHeightSinceLastChange = window.visualViewport.clientHeight;
-    window.visualViewportPolyfill.scaleSinceLastChange = window.visualViewport.scale;
+    window.viewPolyfill.offsetLeftSinceLastChange = window.view.offsetLeft;
+    window.viewPolyfill.offsetTopSinceLastChange = window.view.offsetTop;
+    window.viewPolyfill.widthSinceLastChange = window.view.width;
+    window.viewPolyfill.heightSinceLastChange = window.view.height;
+    window.viewPolyfill.scaleSinceLastChange = window.view.scale;
 
     if (scrollChanged)
       fireScrollEvent();
@@ -85,7 +85,7 @@ var isIEEdge = navigator.userAgent.indexOf('Edge') > -1;
 if ((isChrome)&&(isSafari))
     isSafari=false;
 
-if (window.visualViewport) {
+if (window.view) {
     console.log('Using real visual viewport API');
 } else {
     console.log('Polyfilling Viewport API');
@@ -101,11 +101,11 @@ if (window.visualViewport) {
     layoutDummy.style.top = "0px";
     layoutDummy.style.visibility = "hidden";
 
-    window.visualViewportPolyfill = {
-      "scrollLeftSinceLastChange": null,
-      "scrollTopSinceLastChange": null,
-      "clientWidthSinceLastChange": null,
-      "clientHeightSinceLastChange": null,
+    window.viewPolyfill = {
+      "offsetLeftSinceLastChange": null,
+      "offsetTopSinceLastChange": null,
+      "widthSinceLastChange": null,
+      "heightSinceLastChange": null,
       "scaleSinceLastChange": null,
       "scrollEventListeners": [],
       "resizeEventListeners": [],
@@ -124,7 +124,7 @@ if (window.visualViewport) {
         document.body.appendChild(layoutDummy);
 
         var viewport = {
-          get scrollLeft() {
+          get offsetLeft() {
             if (isSafari) {
               // Note: Safari's getBoundingClientRect left/top is wrong when pinch-zoomed requiring this "unscaling".
               return window.scrollX - (layoutDummy.getBoundingClientRect().left * this.scale + window.scrollX * this.scale);
@@ -132,7 +132,7 @@ if (window.visualViewport) {
               return window.scrollX + layoutDummy.getBoundingClientRect().left;
             }
           },
-          get scrollTop() {
+          get offsetTop() {
             if (isSafari) {
               // Note: Safari's getBoundingClientRect left/top is wrong when pinch-zoomed requiring this "unscaling".
               return window.scrollY - (layoutDummy.getBoundingClientRect().top * this.scale + window.scrollY * this.scale);
@@ -140,14 +140,14 @@ if (window.visualViewport) {
               return window.scrollY + layoutDummy.getBoundingClientRect().top;
             }
           },
-          get clientWidth() {
+          get width() {
             var clientWidth = document.documentElement.clientWidth;
             if (isIEEdge) {
                 // If there's no scrollbar before pinch-zooming, Edge will add
                 // a non-layout-affecting overlay scrollbar. This won't be
                 // reflected in documentElement.clientWidth so we need to
                 // manually subtract it out.
-                if (document.documentElement.clientWidth == window.visualViewportPolyfill.unscaledInnerWidth
+                if (document.documentElement.clientWidth == window.viewPolyfill.unscaledInnerWidth
                     && this.scale > 1) {
                     var oldWidth = document.documentElement.clientWidth;
                     var prevHeight = layoutDummy.style.height;
@@ -160,14 +160,14 @@ if (window.visualViewport) {
             }
             return clientWidth / this.scale;
           },
-          get clientHeight() {
+          get height() {
             var clientHeight = document.documentElement.clientHeight;
             if (isIEEdge) {
                 // If there's no scrollbar before pinch-zooming, Edge will add
                 // a non-layout-affecting overlay scrollbar. This won't be
                 // reflected in documentElement.clientHeight so we need to
                 // manually subtract it out.
-                if (document.documentElement.clientHeight == window.visualViewportPolyfill.unscaledInnerHeight
+                if (document.documentElement.clientHeight == window.viewPolyfill.unscaledInnerHeight
                     && this.scale > 1) {
                     var oldHeight = document.documentElement.clientHeight;
                     var prevWidth = layoutDummy.style.width;
@@ -181,23 +181,23 @@ if (window.visualViewport) {
             return clientHeight / this.scale;
           },
           get scale() {
-            return window.visualViewportPolyfill.unscaledInnerWidth / window.innerWidth;
+            return window.viewPolyfill.unscaledInnerWidth / window.innerWidth;
           },
-          get pageX() {
+          get pageLeft() {
             return window.scrollX;
           },
-          get pageY() {
+          get pageTop() {
             return window.scrollY;
           },
           "addEventListener": function(name, func) {
             // TODO: Match event listener semantics. i.e. can't add the same callback twice.
             if (name === 'scroll')
-              window.visualViewportPolyfill.scrollEventListeners.push(func);
+              window.viewPolyfill.scrollEventListeners.push(func);
             else if (name === 'resize')
-              window.visualViewportPolyfill.resizeEventListeners.push(func);
+              window.viewPolyfill.resizeEventListeners.push(func);
           }
         };
 
-        window.visualViewport = viewport;
+        window.view = viewport;
     });
 }

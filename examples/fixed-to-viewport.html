@@ -33,16 +33,16 @@
 
       <script>
           var bottomBar = document.getElementById('bottombar');
-          var viewport = window.visualViewport;
+          var viewport = window.view;
           function viewportHandler() {
               var layoutViewport = document.getElementById('layoutViewport');
 
               // Since the bar is position: fixed we need to offset it by the visual
               // viewport's offset from the layout viewport origin.
-              var offsetX = viewport.scrollLeft;
-              var offsetY = viewport.clientHeight
+              var offsetX = viewport.offsetLeft;
+              var offsetY = viewport.height
                           - layoutViewport.getBoundingClientRect().height
-                          + viewport.scrollTop;
+                          + viewport.offsetTop;
 
               // You could also do this by setting style.left and style.top if you
               // use width: 100% instead.
@@ -51,8 +51,8 @@
                                           offsetY + 'px) ' +
                                           'scale(' + 1/viewport.scale + ')'
           }
-          window.visualViewport.addEventListener('scroll', viewportHandler);
-          window.visualViewport.addEventListener('resize', viewportHandler);
+          window.view.addEventListener('scroll', viewportHandler);
+          window.view.addEventListener('resize', viewportHandler);
       </script>
   </body>
 </html>

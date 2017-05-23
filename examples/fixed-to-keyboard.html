@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  This example shows how window.visualViewport can be used to keep a bar fixed
+  This example shows how window.view can be used to keep a bar fixed
   to the on-screen keyboard when the keyboard resizes the visual viewport. It's
   effects are visible on Chrome for Android with the following flags enabled in
   chrome://flags:
@@ -45,21 +45,21 @@
 
       <script>
           var bottomBar = document.getElementById('bottombar');
-          var viewport = window.visualViewport;
+          var viewport = window.view;
           function updateBar() {
               // Since the bar is position: fixed we need to offset it by the
               // visual viewport's offset from the layout viewport origin.
               var offsetY = window.innerHeight
-                  - viewport.clientHeight
-                  - viewport.scrollTop;
+                  - viewport.height
+                  - viewport.offsetTop;
 
-              bottomBar.style.left = viewport.scrollLeft + 'px';
+              bottomBar.style.left = viewport.offsetLeft + 'px';
               bottomBar.style.bottom = offsetY + 'px';
               bottomBar.style.transform = "scale(" + 1/viewport.scale + ")";
           }
 
-          window.visualViewport.addEventListener('resize', updateBar);
-          window.visualViewport.addEventListener('scroll', updateBar);
+          window.view.addEventListener('resize', updateBar);
+          window.view.addEventListener('scroll', updateBar);
       </script>
   </body>
 </html>

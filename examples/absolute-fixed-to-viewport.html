@@ -31,15 +31,15 @@
     <div id="fixed"></div>
     <script>
       function viewport() {
-        return window.visualViewport;
+        return window.view;
       }
 
       var fixed = document.getElementById("fixed");
-      var initialTop = fixed.getBoundingClientRect().top + viewport().scrollTop;
+      var initialTop = fixed.getBoundingClientRect().top + viewport().offsetTop;
       var fixedAt = 10;
 
       function viewportHandler() {
-        var scrollTop = window.pageYOffset + viewport().scrollTop;
+        var scrollTop = window.pageYOffset + viewport().offsetTop;
         if (scrollTop > initialTop)
           fixed.style.top = (scrollTop + fixedAt) + 'px';
         else

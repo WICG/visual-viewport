@@ -80,11 +80,11 @@ be fairly straightforward.
 
 ```
 view = {
-    double offsetX; // Relative to the layout viewport
-    double offsetY; // and read-only.
+    double offsetLeft; // Relative to the layout viewport
+    double offsetTop; // and read-only.
 
-    double pageX;  // Relative to the document
-    double pageY;  // and read-only.
+    double pageLeft;  // Relative to the document
+    double pageTop;  // and read-only.
 
     double width;  // Read-only and excludes the scrollbars
     double height; // if present. These values give the number
@@ -99,7 +99,7 @@ view = {
 }
 ```
 
-  * Fire a `scroll` event against `window.view` whenever the `offsetX` or `offsetY` attributes change.
+  * Fire a `scroll` event against `window.view` whenever the `offsetLeft` or `offsetTop` attributes change.
 
   * Fire a `resize` event against `window.view` whenever the `width` or `width` attributes change.
 
@@ -148,16 +148,16 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
         // Since the bar is position: fixed we need to offset it by the visual
         // viewport's offset from the layout viewport origin.
-        var offsetX = viewport.offsetX;
-        var offsetY = viewport.height
+        var offsetLeft = viewport.offsetLeft;
+        var offsetTop = viewport.height
                     - layoutViewport.getBoundingClientRect().height
-                    + viewport.offsetY;
+                    + viewport.offsetTop;
 
         // You could also do this by setting style.left and style.top if you
         // use width: 100% instead.
         bottomBar.style.transform = 'translate(' +
-                                    offsetX + 'px,' +
-                                    offsetY + 'px) ' +
+                                    offsetLeft + 'px,' +
+                                    offsetTop + 'px) ' +
                                     'scale(' + 1/viewport.scale + ')'
     }
     window.view.addEventListener('scroll', viewportHandler);
