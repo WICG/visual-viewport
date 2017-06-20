@@ -214,10 +214,12 @@
         <h3>Events</h3>
         <h4>Resizing the viewport</h4>
         <p data-link-for="VisualViewport">
-          The user agent must fire an <dfn data-cite="!DOM#event">Event</dfn> named <code>resize</code>
-          at the <code>window.view</code> object if any of the <a>height</a>,
-          <a>width</a>, or <a>scale</a> attributes change (e.g. in
-          response to user interaction, scrollbars appearing/disappearing). The resize event must not bubble and must not be cancellable.
+          The user agent must fire an <dfn data-cite="!DOM#event">Event</dfn>
+          named <code>resize</code> at the <a>VisualViewport</a> object if any
+          of its <a>height</a>, <a>width</a>, or <a>scale</a> attributes change
+          (e.g. in response to user interaction, scrollbars
+          appearing/disappearing).  The resize event must not bubble and must
+          not be cancellable.
         </p>
         <p>
           These events follow the procedure defined in
@@ -227,7 +229,7 @@
         <h4>Scrolling</h4>
         <p data-link-for="VisualViewport">
           The user agent must fire an <a>Event</a> named <code>scroll</code>
-          at the <code>window.view</code> object if either the <a>offsetTop</a>
+          at the <a>VisualViewport</a> object if either of its <a>offsetTop</a>
           or <a>offsetLeft</a> attributes change (e.g in response to user
           interaction, by an API, or by the resize of the visual viewport). The
           scroll event must not bubble and must not be cancellable.
