@@ -191,7 +191,7 @@ Here's a few other examples you can try out on Chrome Canary today. Be sure to t
   TODO: Doesn't work on iOS Safari yet.
   We've added a rudimentary polyfill that should work across browsers, albeit with worse
   performance properties (requires polling and ugly hacks). The polyfill itself is
-  [visualViewport.js](https://github.com/WICG/ViewportAPI/polyfill/visualViewport.js)
+  [visualViewport.js](https://github.com/WICG/ViewportAPI/blob/gh-pages/polyfill/visualViewport.js)
   and you can see two examples that use it in the same directory:
 
   * [position: device-fixed with position: fixed](https://wicg.github.io/ViewportAPI/polyfill/vvapi-fix.html)
