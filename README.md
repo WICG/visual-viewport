@@ -18,7 +18,7 @@ implementation details_
 
 ## Draft Spec
 
-[Draft Spec](https://wicg.github.io/ViewportAPI/spec.html) - Still in-progress.
+[Draft Spec](https://wicg.github.io/ViewportAPI/spec.html)
 
 ## Background
 
