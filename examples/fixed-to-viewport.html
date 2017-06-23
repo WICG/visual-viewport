@@ -33,7 +33,7 @@
 
       <script>
           var bottomBar = document.getElementById('bottombar');
-          var viewport = window.view;
+          var viewport = window.visualViewport;
           function viewportHandler() {
               var layoutViewport = document.getElementById('layoutViewport');
 
@@ -51,8 +51,8 @@
                                           offsetY + 'px) ' +
                                           'scale(' + 1/viewport.scale + ')'
           }
-          window.view.addEventListener('scroll', viewportHandler);
-          window.view.addEventListener('resize', viewportHandler);
+          window.visualViewport.addEventListener('scroll', viewportHandler);
+          window.visualViewport.addEventListener('resize', viewportHandler);
       </script>
   </body>
 </html>

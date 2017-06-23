@@ -2,11 +2,11 @@
 
 ## tl;dr
 
-We propose adding a `view` object on `window` that contains the properties of
-the visual viewport.  We're incubating this idea via the WICG in order to try
-to make incremental progress on the long-standing problem of exposing features
-like pinch-zoom to web developers in a rational way.  We are working with the
-CSSWG to eventually get [these
+We propose adding a `visualViewport` object on `window` that contains the
+properties of the visual viewport.  We're incubating this idea via the WICG in
+order to try to make incremental progress on the long-standing problem of
+exposing features like pinch-zoom to web developers in a rational way.  We are
+working with the CSSWG to eventually get [these
 ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant
 specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features
 of the web platform.
@@ -76,10 +76,10 @@ be fairly straightforward.
 
 ## Proposed API (v1)
 
-  * Add a `view` object on `window`.
+  * Add a `visualViewport` object on `window`.
 
 ```
-view = {
+visualViewport = {
     double offsetLeft; // Relative to the layout viewport
     double offsetTop; // and read-only.
 
@@ -99,9 +99,9 @@ view = {
 }
 ```
 
-  * Fire a `scroll` event against `window.view` whenever the `offsetLeft` or `offsetTop` attributes change.
+  * Fire a `scroll` event against `window.visualViewport` whenever the `offsetLeft` or `offsetTop` attributes change.
 
-  * Fire a `resize` event against `window.view` whenever the `width` or `width` attributes change.
+  * Fire a `resize` event against `window.visualViewport` whenever the `width` or `width` attributes change.
 
 ## Example
 
@@ -142,7 +142,7 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
 
 <script>
     var bottomBar = document.getElementById('bottombar');
-    var viewport = window.view;
+    var viewport = window.visualViewport;
     function viewportHandler() {
         var layoutViewport = document.getElementById('layoutViewport');
 
@@ -160,15 +160,15 @@ Here's how an author might use this API to simulate `position: device-fixed`, wh
                                     offsetTop + 'px) ' +
                                     'scale(' + 1/viewport.scale + ')'
     }
-    window.view.addEventListener('scroll', viewportHandler);
-    window.view.addEventListener('resize', viewportHandler);
+    window.visualViewport.addEventListener('scroll', viewportHandler);
+    window.visualViewport.addEventListener('resize', viewportHandler);
 </script>
 ```
 ## Other Examples
 
 Here's a few other examples you can try out on Chrome Canary today. Be sure to turn on the following flags:
 
-  * chrome://flags/#enable-experimental-web-platform-features (Enable window.view)
+  * chrome://flags/#enable-experimental-web-platform-features (Enable window.visualViewport)
   * chrome://flags/#inert-visual-viewport (Makes window.scrollX|innerWidth and others refer to layout viewport)
   * chrome://flags/#enable-osk-overscroll (Makes keyboard resize visual viewport only)
 

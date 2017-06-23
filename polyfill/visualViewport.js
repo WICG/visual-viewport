@@ -49,19 +49,19 @@ function fireResizeEvent() {
 
 function updateViewportChanged() {
     var scrollChanged =
-        window.viewPolyfill.offsetLeftSinceLastChange != window.view.offsetLeft ||
-        window.viewPolyfill.offsetTopSinceLastChange != window.view.offsetTop;
+        window.viewPolyfill.offsetLeftSinceLastChange != window.visualViewport.offsetLeft ||
+        window.viewPolyfill.offsetTopSinceLastChange != window.visualViewport.offsetTop;
 
     var sizeChanged =
-        window.viewPolyfill.widthSinceLastChange != window.view.width ||
-        window.viewPolyfill.heightSinceLastChange != window.view.height ||
-        window.viewPolyfill.scaleSinceLastChange != window.view.scale;
+        window.viewPolyfill.widthSinceLastChange != window.visualViewport.width ||
+        window.viewPolyfill.heightSinceLastChange != window.visualViewport.height ||
+        window.viewPolyfill.scaleSinceLastChange != window.visualViewport.scale;
 
-    window.viewPolyfill.offsetLeftSinceLastChange = window.view.offsetLeft;
-    window.viewPolyfill.offsetTopSinceLastChange = window.view.offsetTop;
-    window.viewPolyfill.widthSinceLastChange = window.view.width;
-    window.viewPolyfill.heightSinceLastChange = window.view.height;
-    window.viewPolyfill.scaleSinceLastChange = window.view.scale;
+    window.viewPolyfill.offsetLeftSinceLastChange = window.visualViewport.offsetLeft;
+    window.viewPolyfill.offsetTopSinceLastChange = window.visualViewport.offsetTop;
+    window.viewPolyfill.widthSinceLastChange = window.visualViewport.width;
+    window.viewPolyfill.heightSinceLastChange = window.visualViewport.height;
+    window.viewPolyfill.scaleSinceLastChange = window.visualViewport.scale;
 
     if (scrollChanged)
       fireScrollEvent();
@@ -85,7 +85,7 @@ var isIEEdge = navigator.userAgent.indexOf('Edge') > -1;
 if ((isChrome)&&(isSafari))
     isSafari=false;
 
-if (window.view) {
+if (window.visualViewport) {
     console.log('Using real visual viewport API');
 } else {
     console.log('Polyfilling Viewport API');
@@ -198,6 +198,6 @@ if (window.view) {
           }
         };
 
-        window.view = viewport;
+        window.visualViewport = viewport;
     });
 }

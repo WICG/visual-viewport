@@ -4,7 +4,7 @@ var viewport;
 window.addEventListener('load', function() {
     bottomBar = document.getElementById('bottombar');
     barcontent = document.getElementById('barcontent');
-    viewport = window.view;
+    viewport = window.visualViewport;
     layoutViewportElement = document.getElementById('layoutInvisible');
     var borderWidth = 6;
     var barHeight = bottomBar.getBoundingClientRect().height;

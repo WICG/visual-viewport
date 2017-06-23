@@ -5,7 +5,7 @@ var layoutViewportElement;
 window.addEventListener('load', function() {
     bottomBar = document.getElementById('bottombar');
     barcontent = document.getElementById('barcontent');
-    viewport = window.view;
+    viewport = window.visualViewport;
     layoutViewportElement = document.getElementById('layoutInvisible');
 
     function viewportChangeHandler()
