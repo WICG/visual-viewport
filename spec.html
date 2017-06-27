@@ -85,7 +85,7 @@
     </section>
     <section>
       <h2>Description</h2>
-        <section dfn-for="Window">
+        <section data-dfn-for="Window">
           <h3>Extensions to the <code>Window</code> interface</h3>
           <p>
             This document extends the <code><dfn data-cite="!HTML#window">Window</dfn></code>
@@ -97,150 +97,149 @@
             };
           </pre>
           <dl>
-            <dt><dfn>visualViewport</dfn></dt>
+            <dt><dfn data-dfn-for="Window">visualViewport</dfn></dt>
             <dd>
-              Returns the <code>VisualViewport</code> object associated with this <code>Window</code>.
+              Returns the <a>VisualViewport</a> object associated with this <a>Window</a>.
             </dd>
           </dl>
         </section>
-      <section dfn-for="VisualViewport">
-        <h3>The <code>VisualViewport</code> interface</h3>
-        <p>
-          A <dfn>VisualViewport</dfn> object represents the visual viewport for a given <code>window</code>.
-          Each <code>window</code> on a page will have a unique <code>VisualViewport</code> object representing
-          the properties associated with that <code>window</code>.
-        </p>
-        <pre class="idl">
-          interface VisualViewport : EventTarget {
-            readonly attribute double offsetLeft;
-            readonly attribute double offsetTop;
+        <section data-dfn-for="VisualViewport">
+          <h3>The <dfn><code>VisualViewport</code></dfn> interface</h3>
+          <p>
+            A <a>VisualViewport</a> object represents the visual viewport for a given <code>window</code>.
+            Each <code>window</code> on a page will have a unique <a>VisualViewport</a> object representing
+            the properties associated with that <code>window</code>.
+          </p>
+          <pre class="idl">
+            interface VisualViewport : EventTarget {
+              readonly attribute double offsetLeft;
+              readonly attribute double offsetTop;
 
-            readonly attribute double pageLeft;
-            readonly attribute double pageTop;
+              readonly attribute double pageLeft;
+              readonly attribute double pageTop;
 
-            readonly attribute double width;
-            readonly attribute double height;
+              readonly attribute double width;
+              readonly attribute double height;
 
-            readonly attribute double scale;
+              readonly attribute double scale;
 
-            attribute EventHandler onresize;
-            attribute EventHandler onscroll;
-          };
-        </pre>
-        <dl>
-          <dt><dfn>offsetLeft</dfn></dt>
-          <dd>
-            Returns the offset of the left edge of the visual viewport from the left edge of the layout viewport in CSS pixels.
-          </dd>
-          <dt><dfn>offsetTop</dfn></dt>
-          <dd>
-            Returns the offset of the top edge of the visual viewport from the top edge of the layout viewport in CSS pixels.
-          </dd>
+              attribute EventHandler onresize;
+              attribute EventHandler onscroll;
+            };
+          </pre>
+          <dl>
+            <dt><dfn>offsetLeft</dfn></dt>
+            <dd>
+              Returns the offset of the left edge of the visual viewport from the left edge of the layout viewport in CSS pixels.
+            </dd>
+            <dt><dfn>offsetTop</dfn></dt>
+            <dd>
+              Returns the offset of the top edge of the visual viewport from the top edge of the layout viewport in CSS pixels.
+            </dd>
 
-          <dt><dfn>pageLeft</dfn></dt>
-          <dd>
-            Returns the x-coordinate, relative to the <dfn data-cite="!CSS-DISPLAY-3#initial-containing-block">initial containing block</dfn> origin, of the left edge of the visual viewport in CSS pixels.
-          </dd>
-          <dt><dfn>pageTop</dfn></dt>
-          <dd>
-            Returns the y-coordinate, relative to the  <a>initial containing block</a> origin, of the top edge of the visual viewport in CSS pixels.
-          </dd>
+            <dt><dfn>pageLeft</dfn></dt>
+            <dd>
+              Returns the x-coordinate, relative to the <dfn data-cite="!CSS-DISPLAY-3#initial-containing-block">initial containing block</dfn> origin, of the left edge of the visual viewport in CSS pixels.
+            </dd>
+            <dt><dfn>pageTop</dfn></dt>
+            <dd>
+              Returns the y-coordinate, relative to the  <a>initial containing block</a> origin, of the top edge of the visual viewport in CSS pixels.
+            </dd>
 
-          <dt><dfn>width</dfn></dt>
-          <dd>
-            Returns the width of the visual viewport in CSS pixels. This value
-            excludes the width of any rendered
-            <dfn data-cite="!CSS-OVERFLOW-4#classic-scrollbars">classic scrollbar</dfn>
-            that is fixed to the visual viewport.
-            <div class="note">
-              A scrollbar that is fixed to the visual viewport is one that does
-              not change size or location as the visual viewport is zoomed and
-              panned.
+            <dt><dfn>width</dfn></dt>
+            <dd>
+              Returns the width of the visual viewport in CSS pixels. This value
+              excludes the width of any rendered
+              <dfn data-cite="!CSS-OVERFLOW-4#classic-scrollbars">classic scrollbar</dfn>
+              that is fixed to the visual viewport.
+              <div class="note">
+                A scrollbar that is fixed to the visual viewport is one that does
+                not change size or location as the visual viewport is zoomed and
+                panned.
 
-              Because this value is in CSS pixels, when excluding the scrollbar
-              width the UA must account for how large the scrollbar is in CSS
-              pixels. That is, the amount excluded is lessened if the viewport
-              is zoomed in and the scrollbars don't change size to the user.
-            </div>
-          </dd>
-          <dt><dfn>height</dfn></dt>
-          <dd>
-            Returns the height of the visual viewport in CSS pixels. This value
-            excludes the height of any rendered
-            <a>classic scrollbar</a>
-            that is fixed to the visual viewport.
-            <div class="note">
-              Because both the width and height attributes are expressed in CSS pixels, increasing either
-              page-zoom or pinch-zoom will cause these values to shrink.
-            </div>
-          </dd>
-          <dt><dfn>scale</dfn></dt>
-          <dd>
-            Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
+                Because this value is in CSS pixels, when excluding the scrollbar
+                width the UA must account for how large the scrollbar is in CSS
+                pixels. That is, the amount excluded is lessened if the viewport
+                is zoomed in and the scrollbars don't change size to the user.
+              </div>
+            </dd>
+            <dt><dfn>height</dfn></dt>
+            <dd>
+              Returns the height of the visual viewport in CSS pixels. This value
+              excludes the height of any rendered
+              <a>classic scrollbar</a>
+              that is fixed to the visual viewport.
+              <div class="note">
+                Because both the width and height attributes are expressed in CSS pixels, increasing either
+                page-zoom or pinch-zoom will cause these values to shrink.
+              </div>
+            </dd>
+            <dt><dfn>scale</dfn></dt>
+            <dd>
+              Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
 
-            <ol>
-              <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
-              <li data-md>
-                <p>
-                  Let <var>CSS pixel size</var> be the size of a CSS <code><dfn data-cite="!CSS3-VALUES#reference-pixel">reference pixel</dfn></code>
-                  at the current <dfn data-cite="!CSSOM-VIEW#page-zoom">page zoom</dfn> and
-                  <dfn data-cite="!CSSOM-VIEW#pinch-zoom">pinch zoom</dfn> scales.
-                </p>
-              </li>
-              <li data-md><p>Let <var>device pixel size</var> be the size of a device pixel of the output device.</p></li>
-              <li data-md>
-                <p>
-                  Let <var>device independent pixel size</var> be the product of <var>device pixel size</var> and the
-                  <dfn data-cite="CSSOM-VIEW#dom-window-devicepixelratio">devicePixelRatio</dfn>
-                </p>
-              </li>
-              <li data-md><p>Return the result of dividing the <var>CSS pixel size</var> by the <var>device independent pixel size</var>.</li>
-            </ol>
-            <div class="note">
-              Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in a focused edit box.
-            </div>
-          </dd>
-          <dt><dfn>onresize</dfn></dt>
-          <dd>
-            Event handler attribute for the resize event.
-          </dd>
-          <dt><dfn>onscroll</dfn></dt>
-          <dd>
-            Event handler attribute for the scroll event.
-          </dd>
-        </dl>
+              <ol>
+                <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
+                <li data-md>
+                  <p>
+                    Let <var>CSS pixel size</var> be the size of a CSS <code><dfn data-cite="!CSS3-VALUES#reference-pixel">reference pixel</dfn></code>
+                    at the current <dfn data-cite="!CSSOM-VIEW#page-zoom">page zoom</dfn> and
+                    <dfn data-cite="!CSSOM-VIEW#pinch-zoom">pinch zoom</dfn> scales.
+                  </p>
+                </li>
+                <li data-md><p>Let <var>device pixel size</var> be the size of a device pixel of the output device.</p></li>
+                <li data-md>
+                  <p>
+                    Let <var>device independent pixel size</var> be the product of <var>device pixel size</var> and the
+                    <dfn data-cite="CSSOM-VIEW#dom-window-devicepixelratio">devicePixelRatio</dfn>
+                  </p>
+                </li>
+                <li data-md><p>Return the result of dividing the <var>CSS pixel size</var> by the <var>device independent pixel size</var>.</li>
+              </ol>
+              <div class="note">
+                Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in a focused edit box.
+              </div>
+            </dd>
+            <dt><dfn>onresize</dfn></dt>
+            <dd>
+              Event handler attribute for the resize event.
+            </dd>
+            <dt><dfn>onscroll</dfn></dt>
+            <dd>
+              Event handler attribute for the scroll event.
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h3>Events</h3>
+          <h4>Resizing the viewport</h4>
+          <p data-link-for="VisualViewport">
+            The user agent must fire an <dfn data-cite="!DOM#event">Event</dfn>
+            named <code>resize</code> at the <a>VisualViewport</a> object if any
+            of its <a>height</a>, <a>width</a>, or <a>scale</a> attributes change
+            (e.g. in response to user interaction, scrollbars
+            appearing/disappearing).  The resize event must not bubble and must
+            not be cancellable.
+          </p>
+          <p>
+            These events follow the procedure defined in
+            <dfn data-cite="!CSSOM-VIEW#resizing-viewports">section 12.1</dfn> of the
+            CSSOM View module.
+          </p>
+          <h4>Scrolling</h4>
+          <p data-link-for="VisualViewport">
+            The user agent must fire an <a>Event</a> named <code>scroll</code>
+            at the <a>VisualViewport</a> object if either of its <a>offsetTop</a>
+            or <a>offsetLeft</a> attributes change (e.g in response to user
+            interaction, by an API, or by the resize of the visual viewport). The
+            scroll event must not bubble and must not be cancellable.
+          </p>
+          <p>
+            These events follow the procedure defined in
+            <dfn data-cite="!CSSOM-VIEW#scrolling-events">section 12.2</dfn>
+            of the CSSOM View module.
+          </p>
+        </section>
       </section>
-      <section>
-        <h3>Events</h3>
-        <h4>Resizing the viewport</h4>
-        <p data-link-for="VisualViewport">
-          The user agent must fire an <dfn data-cite="!DOM#event">Event</dfn>
-          named <code>resize</code> at the <a>VisualViewport</a> object if any
-          of its <a>height</a>, <a>width</a>, or <a>scale</a> attributes change
-          (e.g. in response to user interaction, scrollbars
-          appearing/disappearing).  The resize event must not bubble and must
-          not be cancellable.
-        </p>
-        <p>
-          These events follow the procedure defined in
-          <dfn data-cite="!CSSOM-VIEW#resizing-viewports">section 12.1</dfn> of the
-          CSSOM View module.
-        </p>
-        <h4>Scrolling</h4>
-        <p data-link-for="VisualViewport">
-          The user agent must fire an <a>Event</a> named <code>scroll</code>
-          at the <a>VisualViewport</a> object if either of its <a>offsetTop</a>
-          or <a>offsetLeft</a> attributes change (e.g in response to user
-          interaction, by an API, or by the resize of the visual viewport). The
-          scroll event must not bubble and must not be cancellable.
-        </p>
-        <p>
-          These events follow the procedure defined in
-          <dfn data-cite="!CSSOM-VIEW#scrolling-events">section 12.2</dfn>
-          of the CSSOM View module.
-        </p>
-      </section>
-    </section>
-
   </body>
 </html>
