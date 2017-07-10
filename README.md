@@ -13,7 +13,7 @@ of the web platform.
 
 _Update: The `window.visualViewport` API is currently on track to ship in
 Chrome M61 which should go stable in early September, 2017. Follow crbug
-[issue 635031](http://crbug.com/635031) for details.
+[issue 635031](http://crbug.com/635031) for details._
 
 ## Draft Spec
 
