@@ -11,10 +11,9 @@ ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant
 specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features
 of the web platform.
 
-_Update: Chrome has an experimental implementation as of version 51.0.2700.0
-which can be enabled via the "enable-experimental-web-platform-features" flag
-in chrome://flags. See crbug [issue 595826](http://crbug.com/595826) for
-implementation details_
+_Update: The `window.visualViewport` API is currently on track to ship in
+Chrome M61 which should go stable in early September, 2017. Follow crbug
+[issue 635031](http://crbug.com/635031) for details.
 
 ## Draft Spec
 
@@ -65,11 +64,11 @@ M48 but, due to [developer feedback](http://crbug.com/571297), this change was
 reverted in M49. There was more reliance on this than anticipated.
 
 In order to make this transition we propose adding a new explicit API for the
-visual viewport. With an explicit API, and after a sufficient transition
-period, we could once again change the CSSOM scroll properties to be relative
-to the layout viewport. This change would make sure existing desktop sites
-continue to function correctly as new UI features are added. At the same time,
-it would allow authors to use and customize those features where needed.
+visual viewport. With an explicit API, we could once again change the CSSOM 
+scroll properties to be relative to the layout viewport. This change would make
+sure existing desktop sites continue to function correctly as new UI features
+are added. At the same time, it would allow authors to use and customize those
+features where needed.
 
 The new API is also easy to feature detect and polyfilling this behavior should
 be fairly straightforward.
