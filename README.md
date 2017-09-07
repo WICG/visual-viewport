@@ -100,7 +100,7 @@ visualViewport = {
 
   * Fire a `scroll` event against `window.visualViewport` whenever the `offsetLeft` or `offsetTop` attributes change.
 
-  * Fire a `resize` event against `window.visualViewport` whenever the `width` or `width` attributes change.
+  * Fire a `resize` event against `window.visualViewport` whenever the `width` or `height` attributes change.
 
 ## Example
 
