@@ -11,8 +11,7 @@ ideas](https://github.com/w3c/csswg-drafts/issues/206) into [the relevant
 specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features
 of the web platform.
 
-_Update: The `window.visualViewport` API is currently on track to ship in
-Chrome M61 which should go stable in early September, 2017. Follow crbug
+_Update: The `window.visualViewport` API has shipped in Chrome M61 (Sept. 2017). Follow crbug
 [issue 635031](http://crbug.com/635031) for details._
 
 ## Draft Spec
