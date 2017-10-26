@@ -16,7 +16,7 @@ _Update: The `window.visualViewport` API has shipped in Chrome M61 (Sept. 2017).
 
 ## Draft Spec
 
-[Draft Spec](https://wicg.github.io/visual-viewport/spec.html)
+[Draft Spec](https://wicg.github.io/visual-viewport/)
 
 ## Background
 
