@@ -99,16 +99,17 @@
           <dl>
             <dt><dfn data-dfn-for="Window">visualViewport</dfn></dt>
             <dd>
-              Returns the <a>VisualViewport</a> object associated with this <a>Window</a>.
+              If the <code>window</code> has a <dfn data-cite="!HTML#browsing-context">Browsing Context</dfn> set,
+              return the <a>VisualViewport</a> object associated with it. Otherwise, return null.
             </dd>
           </dl>
         </section>
         <section data-dfn-for="VisualViewport">
           <h3>The <dfn><code>VisualViewport</code></dfn> interface</h3>
           <p>
-            A <a>VisualViewport</a> object represents the visual viewport for a given <code>window</code>.
+            A <a>VisualViewport</a> object represents the visual viewport for a given <code>browsing context</code>.
             Each <code>window</code> on a page will have a unique <a>VisualViewport</a> object representing
-            the properties associated with that <code>window</code>.
+            the properties associated with the <code>window</code>'s <code>browsing context</code>.
           </p>
           <pre class="idl">
             interface VisualViewport : EventTarget {
