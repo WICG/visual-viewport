@@ -99,13 +99,13 @@
           <dl>
             <dt><dfn data-dfn-for="Window">visualViewport</dfn></dt>
             <dd>
-              If the <a>window</a>'s associated <dfn data-cite="!HTML#document">Document</dfn> is
+              If the <a>window</a>'s <dfn data-cite="!HTML#concept-document-window">associated Document</dfn> is
               <dfn data-cite="!HTML#fully-active">fully active</dfn>, return the
               <a>VisualViewport</a> object associated with it. Otherwise, return null.
               <p class="note">
                 Intuitively, the VisualViewport object is only returned and useful for a <a>window</a> whose
-                <a>Document</a> is currently being presented. If a reference is retained to a
-                <a>VisualViewport</a> whose associated <a>Document</a> is not being currently presented, the
+                <dfn data-cite="!HTML#document">Document</dfn> is currently being presented. If a reference is retained to a
+                <a>VisualViewport</a> whose <a>associated Document</a> is not being currently presented, the
                 values in that <a>VisualViewport</a> must not reveal any information about the
                 <dfn data-cite="!HTML#browsing-context">browsing context</dfn>.
               <p>
@@ -118,7 +118,7 @@
             A <a>VisualViewport</a> object represents the visual viewport for a <a>window</a>'s
             <a>browsing context</a>. Each <a>window</a> on a page will have a unique
             <a>VisualViewport</a> object. This object represents the properties of the <a>window</a>'s
-            associated <a>Document</a>'s <a>browsing context</a> when that <a>Document</a> is
+            <a>associated Document</a>'s <a>browsing context</a> when that <a>Document</a> is
             </a>fully active</a>.
             <p class="example">
               For example: if a script retains a reference to a <a>VisualViewport</a> for an iframe, then
@@ -148,7 +148,7 @@
             <dt><dfn>offsetLeft</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the offset of the left edge of the visual viewport from the left edge
@@ -158,7 +158,7 @@
             <dt><dfn>offsetTop</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the offset of the top edge of the visual viewport from the top edge of
@@ -169,7 +169,7 @@
             <dt><dfn>pageLeft</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the x-coordinate, relative to the
@@ -180,7 +180,7 @@
             <dt><dfn>pageTop</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the y-coordinate, relative to the  <a>initial containing block</a>
@@ -191,7 +191,7 @@
             <dt><dfn>width</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, returs the width of the visual viewport in CSS pixels. This value
@@ -213,7 +213,7 @@
             <dt><dfn>height</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0.
+                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the height of the visual viewport in CSS pixels. This value
@@ -230,7 +230,7 @@
             <dd>
               Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
               <ol>
-                <li data-md><p>If the <a>window</a>'s associated <a>Document</a> is not <a>fully active</a>, return 0 and abort these steps.</p></li>
+                <li data-md><p>If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0 and abort these steps.</p></li>
                 <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
                 <li data-md>
                   <p>
