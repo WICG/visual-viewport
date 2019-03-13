@@ -10,6 +10,7 @@ function updateUnscaledDimensions() {
       iframe.style.top="0px";
       iframe.style.border="0";
       iframe.style.visibility="hidden";
+      iframe.style.zIndex="-1";
       iframe.srcdoc = "<!DOCTYPE html><html><body style='margin:0px; padding:0px'></body></html>";
 
       document.body.appendChild(iframe);
