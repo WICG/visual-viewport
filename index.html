@@ -260,11 +260,20 @@
             </dd>
             <dt><dfn>segments</dfn></dt>
             <dd>
-              Returns an array of DOMRects that represent the dimensions of each existing viewport segment. Returns null when called from within an iframe context. 
+              <p>
+                Returns an array of DOMRects that represent the dimensions of each existing viewport segment. 
+              </p>
+              <p>
+                A viewport segment represents the regions (and their dimensions) of the visual viewport that reside on separate displays or logical display regions. 
+                When the visual viewport spans across some number of physical features of a device, these features in turn convey a logical separation of the space available for content.
+              </p>
+              <p>
+                <code>segements</code> is null when there is only a single viewport segment. Returns null when called from within an iframe context.
+              </p>
             </dd>
             <div class="note">
               Based on the data returned for each viewport segment, developers will be able to infer the number of hinges available as well as the hinge orientation.
-               A user may at any point take the browser window out of spanning mode and place it on one of the screens or vice-versa, in those cases the window resize event will fire, and authors can query and get the number of available screen segments. 
+              The browser window can be moved/resized such that the number of segments and/or their dimensions change. In these cases, resize events will fire at which point authors should re-query this property, as the returned FrozenArray is just a snapshot of the current state. 
             </div>
             <dt><dfn>onresize</dfn></dt>
             <dd>
