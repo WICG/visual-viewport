@@ -143,11 +143,11 @@
               readonly attribute double height;
 
               readonly attribute double scale;
+              
+              readonly attribute FrozenArray<DOMRect> segments; 
 
               attribute EventHandler onresize;
               attribute EventHandler onscroll;
-              
-              readonly attribute FrozenArray<DOMRect> segments; 
             };
           </pre>
           <dl>
@@ -258,6 +258,23 @@
                 Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in a focused edit box.
               </div>
             </dd>
+            <dt><dfn>segments</dfn></dt>
+            <dd>
+              <p>
+                Returns an array of DOMRects that represent the dimensions of each existing viewport segment. 
+              </p>
+              <p>
+                A viewport segment represents the regions (and their dimensions) of the visual viewport that reside on separate displays or logical display regions. 
+                When the visual viewport spans across some number of physical features of a device, these features in turn convey a logical separation of the space available for content.
+              </p>
+              <p>
+                <code>segements</code> is null when there is only a single viewport segment. Returns null when called from within an iframe context.
+              </p>
+            </dd>
+            <div class="note">
+              Based on the data returned for each viewport segment, developers will be able to infer the number of hinges available as well as the hinge orientation.
+              The browser window can be moved/resized such that the number of segments and/or their dimensions change. In these cases, resize events will fire at which point authors should re-query this property, as the returned FrozenArray is just a snapshot of the current state. 
+            </div>
             <dt><dfn>onresize</dfn></dt>
             <dd>
               Event handler attribute for the resize event.
@@ -265,10 +282,6 @@
             <dt><dfn>onscroll</dfn></dt>
             <dd>
               Event handler attribute for the scroll event.
-            </dd>
-            <dt><dfn>segments</dfn></dt>
-            <dd>
-              Returns an array of DOMRects that represent the dimensions of each existing <a>viewport segment<a>. Returns null when called from within an iframe context. 
             </dd>
           </dl>
         </section>
@@ -302,25 +315,6 @@
             of the CSSOM View module.
           </p>
         </section>
-        <section>
-          <h3>Functions</h3>
-          <h4>Detecting the number of display-regions</h4>
-          <p>
-            The value returned from <code>window.visualViewport.segments;</code> will be an array of <code>DOMRects</code>. Based on the data returned for each viewport segment, 
-            developers will be able to infer the number of hinges available as well as the hinge orientation.
-          </p>
-          <p>
-            A user may at any point take the browser window out of spanning mode and place it on one of the screens or vice-versa, 
-            in those cases the window resize event will fire, and authors can query and get the number of available screen segments. 
-          </p>
-          <p>
-            Developers may listen to the window <code>resize</code> event or <code>orientationchange</code> to detect whether the browser was resized or the device was rotated.
-          </p>
-          <h4>APIs availability in iframe context</h4>
-          <p>
-            <code>visualViewport.segments</code> will return null when called from within an iframe context. 
-          </p>
-      </section>
       </section>
   </body>
 </html>
