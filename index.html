@@ -31,7 +31,7 @@
                     href: 'https://discourse.wicg.io/t/explicit-api-for-visual-viewport/1399'
                 }, {
                     value: 'Viewport segments discussion',
-                    href: 'https://www.w3.org/2021/02/24-webscreens-irc'
+                    href: 'https://www.w3.org/2021/02/24-webscreens-minutes'
                 }
              ]
           }],
@@ -262,6 +262,9 @@
               </div>
             </dd>
             <dt><dfn>segments</dfn></dt>
+            <div class="note">
+              The viewport segments property is currently in development and considered experimental. 
+            </div>
             <dd>
               <p>
                 Returns an array of DOMRects that represent the dimensions of each existing viewport segment. 
@@ -277,9 +280,6 @@
             <div class="note">
               Based on the data returned for each viewport segment, developers will be able to infer the number of hinges available as well as the hinge orientation.
               The browser window can be moved/resized such that the number of segments and/or their dimensions change. In these cases, resize events will fire at which point authors should re-query this property, as the returned FrozenArray is just a snapshot of the current state. 
-            </div>
-            <div class="note">
-              The viewport segments code is currently in development and considered experimental. 
             </div>
             <dt><dfn>onresize</dfn></dt>
             <dd>
