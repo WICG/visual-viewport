@@ -3,7 +3,7 @@
   <head>
     <title>Visual Viewport API</title>
     <meta charset='utf-8'>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common'
+    <script src='https://www.w3.org/Tools/respec/respec-w3c'
             async class='remove'></script>
     <script class='remove'>
       var respecConfig = {
@@ -35,8 +35,8 @@
                 }
              ]
           }],
-          wg: "Web Platform Incubator Community Group",
-          wgURI: "https://www.w3.org/community/wicg/",
+          group: "wicg",
+          xref: ["dom", "html", "geometry-1"],
       };
     </script>
   </head>
@@ -147,7 +147,7 @@
 
               readonly attribute double scale;
               
-              readonly attribute FrozenArray<DOMRect> segments; 
+              readonly attribute FrozenArray&lt;DOMRect> segments;
 
               attribute EventHandler onresize;
               attribute EventHandler onscroll;
