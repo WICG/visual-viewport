@@ -94,12 +94,19 @@ visualViewport = {
                       // viewport` (size at width=device-width). This
                       // is the same scale as used in the viewport
                       // <meta> tag.
+    
+    FrozenArray<DOMRect> segments; // Read-only. Returns an array of 
+                                   // DOMRects that represent the dimensions 
+                                   // of each existing viewport segment.
+
 }
 ```
 
   * Fire a `scroll` event against `window.visualViewport` whenever the `offsetLeft` or `offsetTop` attributes change.
 
   * Fire a `resize` event against `window.visualViewport` whenever the `width` or `height` attributes change.
+  
+  * The viewport segments property is currently in development and experimental. Please view the [segments explainer](https://github.com/WICG/visual-viewport/tree/gh-pages/segments-explainer) for more details. 
 
 ## Example
 
