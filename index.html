@@ -147,7 +147,7 @@
 
               readonly attribute double scale;
               
-              readonly attribute FrozenArray&lt;DOMRect> segments;
+              readonly attribute FrozenArray&lt;DOMRect>? segments;
 
               attribute EventHandler onresize;
               attribute EventHandler onscroll;
@@ -274,7 +274,7 @@
                 When the visual viewport spans across some number of physical features of a device, these features in turn convey a logical separation of the space available for content.
               </p>
               <p>
-                <code>segements</code> is null when there is only a single viewport segment. Returns null when called from within an iframe context.
+                <code>segments</code> is null when there is only a single viewport segment. Returns null when called from within an iframe context.
               </p>
             </dd>
             <div class="note">
