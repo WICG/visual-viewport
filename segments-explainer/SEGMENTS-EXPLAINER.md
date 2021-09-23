@@ -84,9 +84,9 @@ if (segments && segments.length > 1) {
 }
 ```
 
-We can also use the ![`@horizontal-viewport-segments`](https://drafts.csswg.org/mediaqueries-5/#mf-horizontal-viewport-segments) and ![`@vertical-viewport-segments](https://drafts.csswg.org/mediaqueries-5/#mf-vertical-viewport-segments) media queries to change the layout and style of a website depending on the way a device is oriented. 
+We can also use the [@horizontal-viewport-segments](https://drafts.csswg.org/mediaqueries-5/#mf-horizontal-viewport-segments) and [@vertical-viewport-segments](https://drafts.csswg.org/mediaqueries-5/#mf-vertical-viewport-segments) media queries to change the layout and style of a website depending on the way a device is oriented. 
 
-Additionally, there are a number of new ![environment variables](https://drafts.csswg.org/css-env-1/#viewport-segments) that can be used to place and position content on dual screen devices. 
+Additionally, there are a number of new [environment variables](https://drafts.csswg.org/css-env-1/#viewport-segments) that can be used to place and position content on dual screen devices. 
 
 
 ### Reacting to map application resize/spanning state change
