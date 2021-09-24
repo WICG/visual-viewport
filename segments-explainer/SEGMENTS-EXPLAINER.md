@@ -97,9 +97,11 @@ Additionally, there are a number of new [environment variables](https://drafts.c
 
 #### JavaScript solution outline:
 
-```js  
 window.onresize = function() {
-	const segments = window.visualViewport.segments;
-	console.log(segments.length) // 1
+    const segments = window.visualViewport.segments;
+    if (segments && segments.length > 1) {
+        // Make changes two split content into the segments.
+    } else {
+        // Reset state to single viewport (normal responsive layout).
+    }
 }
-```
