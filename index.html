@@ -39,6 +39,21 @@
           xref: ["dom", "html", "geometry-1"],
       };
     </script>
+    <style>
+      div.monkeypatch:before {
+          content: 'Monkeypatching';
+          color: grey;
+          font-style: italic;
+          float: right;
+          display: block;
+          padding: 2px 10px;
+      }
+      div.monkeypatch {
+          padding: 10px 0 0 20px;
+          border-left: 5px solid #EEE5D3;
+          background-color: #FBFAE9;
+      }
+    </style>
   </head>
   <body>
     <section id='abstract'>
@@ -95,7 +110,7 @@
           <h3>Extensions to the <code>Window</code> interface</h3>
           <p>
             This document extends the <code><dfn data-cite="!HTML#window">Window</dfn></code>
-            interface defined by [[!HTML]].
+            interface defined by [[HTML]].
           </p>
           <pre class="idl">
             partial interface Window {
@@ -118,7 +133,7 @@
             </dd>
           </dl>
         </section>
-        <section data-dfn-for="VisualViewport">
+        <section data-dfn-for="VisualViewport" data-cite="HTML DOM">
           <h3>The <dfn><code>VisualViewport</code></dfn> interface</h3>
           <p>
             A <a>VisualViewport</a> object represents the visual viewport for a <a>window</a>'s
@@ -291,35 +306,34 @@
             </dd>
           </dl>
         </section>
-        <section>
-          <h3>Events</h3>
-          <h4>Resizing the viewport</h4>
-          <p data-link-for="VisualViewport">
-            The user agent must fire an <dfn data-cite="!DOM#event">Event</dfn>
-            named <code>resize</code> at the <a>VisualViewport</a> object if any
-            of its <a>height</a>, <a>width</a>, or <a>scale</a> attributes change
-            (e.g. in response to user interaction, scrollbars
-            appearing/disappearing).  The resize event must not bubble and must
-            not be cancellable.
-          </p>
-          <p>
-            These events follow the procedure defined in
-            <dfn data-cite="!CSSOM-VIEW#resizing-viewports">section 12.1</dfn> of the
-            CSSOM View module.
-          </p>
-          <h4>Scrolling</h4>
-          <p data-link-for="VisualViewport">
-            The user agent must fire an <a>Event</a> named <code>scroll</code>
-            at the <a>VisualViewport</a> object if either of its <a>offsetTop</a>
-            or <a>offsetLeft</a> attributes change (e.g in response to user
-            interaction, by an API, or by the resize of the visual viewport). The
-            scroll event must not bubble and must not be cancellable.
-          </p>
-          <p>
-            These events follow the procedure defined in
-            <dfn data-cite="!CSSOM-VIEW#scrolling-events">section 12.2</dfn>
-            of the CSSOM View module.
-          </p>
+        <section id="additions-to-resizing-viewports">
+          <h3>Additions to the CSSOM-VIEW <code>Events</code> section</h3>
+          <p>Append following step as the last step of <dfn data-cite="!CSSOM-VIEW#run-the-resize-steps">run the resize steps</dfn>:</p>
+          <div class="monkeypatch" data-link-for="VisualViewport">
+            <ol start="2">
+              <li>
+                If doc's associated <a>Window</a>'s <a>VisualViewport</a>'s <a>scale</a>,
+                <a>width</a>, or <a>height</a> properties have changed since
+                the last time these steps were run, fire an event named
+                <code>resize</code> at the doc's associated <a>Window</a>'s
+                <a>VisualViewport</a>.
+              </li>
+            </ol>
+          </div>
+
+          <p>Replace step 1.1 of <dfn data-cite="!CSSOM-VIEW#run-the-scroll-steps">run the scroll steps</dfn> with:</p>
+          <div class="monkeypatch" data-link-for="VisualViewport">
+            <ol>
+              <li>
+                <p>
+                  <strike>If target is a Document, fire an event named scroll that bubbles at target.</strike>
+                </p>
+                If <code>target</code> is a <a>Document</a>, fire an event named <code>scroll</code> that
+                bubbles at <code>target</code>. Then, fire an event named <code>scroll</code> at the
+                <a>VisualViewport</a> of the Document's associated <a>Window</a>.
+              </li>
+            </ol>
+          </div>
         </section>
       </section>
   </body>
