@@ -64,9 +64,6 @@
     </section>
 
     <section id='sotd'>
-      <p>
-        TODO
-      </p>
     </section>
 
     <section id="intro" class="informative">
@@ -137,7 +134,7 @@
           <h3>The <dfn><code>VisualViewport</code></dfn> interface</h3>
           <p>
             A <a>VisualViewport</a> object represents the visual viewport for a <a>window</a>'s
-            <a>browsing context</a>. Each <a>window</a> on a page will have a unique
+            <a>browsing context</a>. Each <a>window</a> in a page has a distinct
             <a>VisualViewport</a> object. This object represents the properties of the <a>window</a>'s
             <a>associated Document</a>'s <a>browsing context</a> when that <a>Document</a> is
             </a>fully active</a>.
@@ -161,7 +158,7 @@
               readonly attribute double height;
 
               readonly attribute double scale;
-              
+
               readonly attribute FrozenArray&lt;DOMRect>? segments;
 
               attribute EventHandler onresize;
@@ -176,7 +173,7 @@
               </p>
               <p>
                 Otherwise, return the offset of the left edge of the visual viewport from the left edge
-                of the layout viewport in CSS pixels.
+                of the <a>associated Document</a>'s layout viewport in CSS pixels.
               </p>
             </dd>
             <dt><dfn>offsetTop</dfn></dt>
@@ -186,7 +183,7 @@
               </p>
               <p>
                 Otherwise, return the offset of the top edge of the visual viewport from the top edge of
-                the layout viewport in CSS pixels.
+                the <a>associated Document</a>'s layout viewport in CSS pixels.
               </p>
             </dd>
 
@@ -196,7 +193,7 @@
                 If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, return the x-coordinate, relative to the
+                Otherwise, return the x-coordinate, relative to the <a>associated Document</a>'s
                 <dfn data-cite="!CSS-DISPLAY-3#initial-containing-block">initial containing block</dfn>
                 origin, of the left edge of the visual viewport in CSS pixels.
               </p>
@@ -207,7 +204,8 @@
                 If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, return the y-coordinate, relative to the  <a>initial containing block</a>
+                Otherwise, return the y-coordinate, relative to the <a>associated Document</a>'s
+                <a>initial containing block</a>
                 origin, of the top edge of the visual viewport in CSS pixels.
               </p>
             </dd>
@@ -253,6 +251,9 @@
             <dt><dfn>scale</dfn></dt>
             <dd>
               Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
+              <div class="note">
+                Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in on a focused edit box.
+              </div>
               <ol>
                 <li data-md><p>If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0 and abort these steps.</p></li>
                 <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
@@ -268,13 +269,13 @@
                   <p>
                     Let <var>device independent pixel size</var> be the product of <var>device pixel size</var> and the
                     <dfn data-cite="CSSOM-VIEW#dom-window-devicepixelratio">devicePixelRatio</dfn>
+                    <div class="note">
+                      Visual viewport scale (e.g. pinch-zoom) does not affect the devicePixelRatio.
+                    </div>
                   </p>
                 </li>
                 <li data-md><p>Return the result of dividing the <var>CSS pixel size</var> by the <var>device independent pixel size</var>.</li>
               </ol>
-              <div class="note">
-                Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in a focused edit box.
-              </div>
             </dd>
             <dt><dfn>segments</dfn></dt>
             <div class="note">
