@@ -103,6 +103,40 @@
 
     <section>
       <h2>Description</h2>
+        <section id="definition-of-the-visual-viewport">
+          <h3>Definition of the visual viewport</h3>
+          <p>
+              The <dfn>visual viewport</dfn> is a kind of <dfn
+              data-cite="!CSS22/visuren.html#x1">viewport</dfn> whose <dfn
+              data-cite="!cssom-view-1/#scrolling-area">scrolling area</dfn> is
+              another <a>viewport</a>, called the <dfn>layout viewport</dfn>.
+          </p>
+          <p>
+              In addition to scrolling, the <a>visual viewport</a> also allows
+              applying a scale transform to its <a>layout viewport</a>. This
+              transform is applied to the canvas of the <a>layout viewport</a>
+              and does not affect its internal coordinate space.
+              <div class="note">
+                  The scale transform on the visual viewport is sometimes
+                  referred to as "pinch-zoom". Conceptually, this transform
+                  changes the size of the CSS <a>reference pixel</a> but
+                  changes the size of the <a>layout viewport</a> proportionally
+                  so that it acts like a magnifying glass, without causing
+                  reflow of the page's contents.
+              </div>
+          </p>
+          <p>
+              The magnitude of the scale transform is known as the visual
+              viewport's <dfn>scale factor</dfn>
+          </p>
+          <p>
+              The <a>window</a> object has an <dfn>associated</dfn> <a>visual viewport</a>
+              which is a <a>VisualViewport</a> object. Every <a>visual
+              viewport</a> is associated with exactly one <a>window</a> object
+              that never changes. The <dfn>associated document</dfn> of a <a>visual viewport</a>
+              is the <a data-cite="!HTML#concept-document-window">associated document</a> of its <a>associated</a> window.
+          </p>
+        </section>
         <section data-dfn-for="Window">
           <h3>Extensions to the <code>Window</code> interface</h3>
           <p>
@@ -111,15 +145,15 @@
           </p>
           <pre class="idl">
             partial interface Window {
-              [SameObject, Replaceable] readonly attribute VisualViewport visualViewport;
+              [SameObject, Replaceable] readonly attribute VisualViewport? visualViewport;
             };
           </pre>
           <dl>
             <dt><dfn data-dfn-for="Window">visualViewport</dfn></dt>
             <dd>
-              If the <a>window</a>'s <dfn data-cite="!HTML#concept-document-window">associated Document</dfn> is
+              If the <a>associated document</a> is
               <dfn data-cite="!HTML#fully-active">fully active</dfn>, return the
-              <a>VisualViewport</a> object associated with it. Otherwise, return null.
+              <a>VisualViewport</a> object <a>associated</a> with the <a>window</a>. Otherwise, return null.
               <p class="note">
                 Intuitively, the VisualViewport object is only returned and useful for a <a>window</a> whose
                 <dfn data-cite="!HTML#document">Document</dfn> is currently being presented. If a reference is retained to a
@@ -133,17 +167,25 @@
         <section data-dfn-for="VisualViewport" data-cite="HTML DOM">
           <h3>The <dfn><code>VisualViewport</code></dfn> interface</h3>
           <p>
-            A <a>VisualViewport</a> object represents the visual viewport for a <a>window</a>'s
-            <a>browsing context</a>. Each <a>window</a> in a page has a distinct
-            <a>VisualViewport</a> object. This object represents the properties of the <a>window</a>'s
-            <a>associated Document</a>'s <a>browsing context</a> when that <a>Document</a> is
-            </a>fully active</a>.
+            A <a>VisualViewport</a> object represents the <a>visual viewport</a> a <a>document</a> is
+            being presented in if it is <a>fully active</a>. Each <a>window</a> in a page has its own distinct
+            <a>VisualViewport</a> object.
+            <p class="note">
+              A document being presented in any browsing context, including a
+              nested browsing context, will have its own visual viewport.
+              However, most user agents modify the visual viewport only on a
+              top-level browsing context. The visual viewport in a nested
+              browsing context is provided for ergonomic reasons.
+            </p>
             <p class="example">
               For example: if a script retains a reference to a <a>VisualViewport</a> for an iframe, then
               navigates the iframe to another location, reading the integral values from the
               <a>VisualViewport</a> reference will return 0 because its window's Document is no longer
               being presented in a browsing content; it is no longer fully-active.
             <p>
+          </p>
+          <p>
+            Unless otherwise stated, all returned values in this section are defined in <dfn data-cite="!css-values-4#px">CSS pixels</dfn>.
           </p>
           <pre class="idl">
             [Exposed=Window]
@@ -169,54 +211,53 @@
             <dt><dfn>offsetLeft</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, return the offset of the left edge of the visual viewport from the left edge
-                of the <a>associated Document</a>'s layout viewport in CSS pixels.
+                Otherwise, return the offset of the left edge of the <a>visual viewport</a> from the left edge
+                of the <a>layout viewport</a>.
               </p>
             </dd>
             <dt><dfn>offsetTop</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the offset of the top edge of the visual viewport from the top edge of
-                the <a>associated Document</a>'s layout viewport in CSS pixels.
+                the <a>layout viewport</a>.
               </p>
             </dd>
 
             <dt><dfn>pageLeft</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, return the x-coordinate, relative to the <a>associated Document</a>'s
-                <dfn data-cite="!CSS-DISPLAY-3#initial-containing-block">initial containing block</dfn>
-                origin, of the left edge of the visual viewport in CSS pixels.
+                Otherwise, return the offset of the left edge of the visual viewport from the left edge of the
+                <dfn data-cite="!CSS-DISPLAY-3#initial-containing-block">initial containing block</dfn> of the
+                <a>layout viewport</a>'s <a>document</a>.
               </p>
             </dd>
             <dt><dfn>pageTop</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, return the y-coordinate, relative to the <a>associated Document</a>'s
-                <a>initial containing block</a>
-                origin, of the top edge of the visual viewport in CSS pixels.
+                Otherwise, return the offset of the top edge of the visual viewport from the top edge of the
+                <a>initial containing block</a> of the <a>layout viewport</a>'s <a>document</a>.
               </p>
             </dd>
 
             <dt><dfn>width</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
-                Otherwise, returs the width of the visual viewport in CSS pixels. This value
+                Otherwise, return the width of the visual viewport in CSS pixels. This value
                 excludes the width of any rendered
                 <dfn data-cite="!CSS-OVERFLOW-4#classic-scrollbars">classic scrollbar</dfn>
                 that is fixed to the visual viewport.
@@ -235,7 +276,7 @@
             <dt><dfn>height</dfn></dt>
             <dd>
               <p>
-                If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0.
+                If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0.
               </p>
               <p>
                 Otherwise, return the height of the visual viewport in CSS pixels. This value
@@ -250,18 +291,17 @@
             </dd>
             <dt><dfn>scale</dfn></dt>
             <dd>
-              Returns the pinch-zoom scaling factor applied to the visual viewport. It can be computed using the following algorithm:
+              Returns the <a>visual viewport</a>'s <a>scale factor</a>. It can be computed using the following algorithm:
               <div class="note">
-                Although it is referred to as the pinch-zoom scaling factor, it can be affected through means other than pinch-zooming. e.g. When the UA centers and zooms in on a focused edit box.
+                Although often referred to as the pinch-zoom scale factor, it can be affected through means other than pinch-zooming. e.g. When the user agent centers and zooms in on a focused input element.
               </div>
               <ol>
-                <li data-md><p>If the <a>window</a>'s <a>associated Document</a> is not <a>fully active</a>, return 0 and abort these steps.</p></li>
+                <li data-md><p>If the <a>visual viewport</a>'s <a>associated document</a> is not <a>fully active</a>, return 0 and abort these steps.</p></li>
                 <li data-md><p>If there is no output device, return 1 and abort these steps.</p></li>
                 <li data-md>
                   <p>
                     Let <var>CSS pixel size</var> be the size of a CSS <code><dfn data-cite="!CSS3-VALUES#reference-pixel">reference pixel</dfn></code>
-                    at the current <dfn data-cite="!CSSOM-VIEW#page-zoom">page zoom</dfn> and
-                    <dfn data-cite="!CSSOM-VIEW#pinch-zoom">pinch zoom</dfn> scales.
+                    scaled by the current <dfn data-cite="!CSSOM-VIEW#page-zoom">page zoom</dfn> and the <a>scale factor</a> of the <a>visual viewport</a> associated with this <a>window</a>
                   </p>
                 </li>
                 <li data-md><p>Let <var>device pixel size</var> be the size of a device pixel of the output device.</p></li>
