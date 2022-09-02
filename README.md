@@ -14,9 +14,13 @@ of the web platform.
 _Update: The `window.visualViewport` API has shipped in Chrome M61 (Sept. 2017). Follow crbug
 [issue 635031](http://crbug.com/635031) for details._
 
+## Spec
+
 ## Draft Spec
 
-[Draft Spec](https://wicg.github.io/visual-viewport/index.html)
+~~[Draft Spec](https://wicg.github.io/visual-viewport/index.html)~~
+
+Now merged upstream to [CSSOM-View](https://drafts.csswg.org/cssom-view/#visualViewport)
 
 ## Background
 
