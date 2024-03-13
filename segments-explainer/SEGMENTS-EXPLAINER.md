@@ -66,9 +66,32 @@ This proposal doesn't aim to substitute existing APIs &mdash; the proposed devel
 
 ## Security and Privacy
 
-### APIs availability in iframe context
+### Security considerations
 
-`segments` will return null when called from within an `iframe` context.
+No new security considerations have been reported on this specification.
+
+### Privacy considerations
+
+The Viewport Segments API exposes segments determined from the hardware when the device is used in certain postures (see [Device Posture API](https://w3c.github.io/device-posture/) for more details). Segments are in CSS pixels and relative to the viewport, they do not expose any global position in screen coordinates.
+
+Just like the viewport size, segments could be specific to a given device model which means they could be used for fingerprinting. If this API can be used simultaneously in different window contexts on the same device it may be possible for that code to correlate the user across those two contexts, creating unanticipated tracking mechanisms. One example would be to determine if two users are not the same. Another would be to use the viewport segments sizes however, in practice as more and more foldable devices gets released the value of this information will be diminished (especially considering that you could use the same logic
+on the viewport size itself).
+
+#### APIs availability in iframe context
+
+As of today, `segments` will return null when called from within an `iframe` context but the CSS API will be available.
+
+If `segments` becomes available to iframes, it would bring a new privacy issue. Except when the iframe is fullscreen, segments values need to be adjusted to
+be useful in the iframe context. If so they could be used to potentially find the iframe position in the main frame. But this is doable today, covered in
+the [Intersection Observer Privacy section](https://www.w3.org/TR/intersection-observer/#privacy) and the conclusion is that the privacy implications are unclear.
+
+Two mitigation strategies could be added:
+- Restrict the viewport segments to same origin iframes
+- Restrict the viewport segments to fullscreen iframes (or iframes spanning the whole viewport)
+
+### Mitigation strategies
+- Secure Context: the `segments` are only available within a secure context.
+- Focused Area: `segments` are only available for each active document whose origin is the same origin-domain with the currently focused area document.
 
 ## Examples of user experiences and solution outlines that can leverage two screens:
 
