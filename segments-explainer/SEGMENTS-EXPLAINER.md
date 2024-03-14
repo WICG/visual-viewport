@@ -22,7 +22,7 @@ Developers may be able to solve this by taking a hard dependency on a specific d
 ### Current problems:
 More specific challenges we've heard from our internal product teams that were exploring building experiences for this emerging classes of devices include:
 
-- *Hardware differences*: Devices could be seamless (e.g. [Samsung Galaxy Fold](https://www.samsung.com/levant/smartphones/galaxy-fold/), [Asus Zenbook Fold](https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/)) or have a seam (e.g. [Microsoft Surface Duo 2](https://www.microsoft.com/en-us/d/surface-duo-2/9408kgxp4xjl), [Asus Zenbook Duo](https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/) or ZTE Axon M). In the former case developers might want to take it into account or intentionally ignore depending on scenario;
+- *Hardware differences*: Devices could be seamless (e.g. [Samsung Galaxy Fold](https://www.samsung.com/levant/smartphones/galaxy-fold/), [Asus Zenbook Fold](https://www.asus.com/laptops/for-home/zenbook/zenbook-17-fold-oled-ux9702/)) or have a seam (e.g. [Microsoft Surface Duo 2](https://www.microsoft.com/en-us/d/surface-duo-2/9408kgxp4xjl), [Asus Zenbook Duo](https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-duo-2024-ux8406/) or ZTE Axon M). Developers might want to take it into account or intentionally ignore depending on scenario;
 - *Folding capabilities, state*: the fold area could be safe or unsafe region to present content;
 - *Future-proofing*: Ideally developers would want a somewhat stable way to target this class of devices without having to rely on specific device hardware parameters.
 
