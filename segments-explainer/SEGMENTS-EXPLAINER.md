@@ -91,7 +91,7 @@ Two mitigation strategies could be added:
 
 ### Mitigation strategies
 - Secure Context: the `segments` are only available within a secure context.
-- Focused Area: `segments` are only available for each active document whose origin is the same origin-domain with the currently focused area document.
+- Visibility state: the `segments` property may return stale values and is only updated while the document's visibility state is "visible".
 
 ## Examples of user experiences and solution outlines that can leverage two screens:
 
