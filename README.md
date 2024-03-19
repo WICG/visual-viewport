@@ -12,7 +12,7 @@ specs](https://github.com/w3c/csswg-drafts/issues/505) as first-class features
 of the web platform.
 
 _Update: The `window.visualViewport` API has shipped in Chrome M61 (Sept. 2017). Follow crbug
-[issue 635031](http://crbug.com/635031) for details._
+[issue 635031](https://crbug.com/635031) for details._
 
 ## Spec
 
@@ -30,7 +30,7 @@ viewport is what is actually visible on the screen. When the user pinch-zooms
 into the page, the visual viewport shrinks but the layout viewport is
 unchanged. UI like the on-screen keyboard (OSK) can also shrink the visual
 viewport without affecting the layout viewport. See this
-[demo](http://bokand.github.io/viewport/index.html) to visualize the two
+[demo](https://bokand.github.io/viewport/index.html) to visualize the two
 viewports. This isn't specified anywhere and implementations vary greatly
 between browsers.
 
@@ -46,7 +46,7 @@ for list). Again, there is no spec governing this, but this is how browsers
   arbitrary and confusing.
 
 This confusion has caused many desktop sites to break when pinch-zoomed or when
-showing the OSK (see [this bug ](http://crbug.com/489206) for examples). This
+showing the OSK (see [this bug ](https://crbug.com/489206) for examples). This
 is because mobile browsers added new semantics to existing properties,
 expecting they'd to be invisible to desktop browsers. This becomes a problem as
 the lines between mobile and desktop blur and features like on-screen keyboard
@@ -63,7 +63,7 @@ layout viewport is what position: fixed elements attach to.
 
 We believe the best way forward is to change those remaining CSSOM scroll
 properties to be relative to the layout viewport. In fact, Chrome did this in
-M48 but, due to [developer feedback](http://crbug.com/571297), this change was
+M48 but, due to [developer feedback](https://crbug.com/571297), this change was
 reverted in M49. There was more reliance on this than anticipated.
 
 In order to make this transition we propose adding a new explicit API for the
