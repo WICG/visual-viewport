@@ -12,12 +12,15 @@ Previously:
 | Name | Link |
 |------|------|
 | Device Posture API | [Explainer](https://github.com/w3c/device-posture), [Working Draft Spec](https://www.w3.org/TR/device-posture/) |
+| CSS Viewport Segments APIs | [Explainer](hhttps://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Foldables/explainer.md), [Media Queries Draft Spec](https://www.w3.org/TR/mediaqueries-5/#mf-horizontal-viewport-segments) and [Environment Variables Draft Spec](https://drafts.csswg.org/css-env-1/#viewport-segments)
 | Multi-Screen Window Placement API | [Explainer](https://github.com/webscreens/window-placement/blob/master/EXPLAINER.md), [Draft Community Group Report](https://webscreens.github.io/window-placement/) |
-| Visual Viewport API | [Draft CSSOM View Spec](https://drafts.csswg.org/cssom-view/#visualViewport), [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Visual_Viewport_API) |
+| Viewport API | [Draft CSSOM View Spec](https://drafts.csswg.org/css-viewport/)|
 
 ## Motivation:
 Web developers targeting foldable devices want to be able to effectively lay out the content in a window that spans multiple displays or across the fold of device with a foldable screen. However, the web platform does not yet provide the necessary primitives for building layouts that are optimized for foldable experiences.
 Developers may be able to solve this by taking a hard dependency on a specific device hardware parameters - an approach that is fragile, not scalable, and requires work duplication for each new device.
+
+This API share the same goals and return the same information as the CSS Viewport Segments APIs linked above. It provides a convenient way for content author to access the information without relying on CSS.
 
 ### Current problems:
 More specific challenges we've heard from our internal product teams that were exploring building experiences for this emerging classes of devices include:
@@ -53,12 +56,12 @@ We propose a new concept of Viewport Segments, which represent the regions of th
 This proposal is primarily aimed at reactive scenarios, where an application wants to take advantage of the fact that it spans multiple displays, by virtue of the user/window manager placing it in that state. It is not designed for scenarios of proactively placing content in a separate top-level browsing context on the various displays available (this would fall under the [Window Placement API](https://github.com/webscreens/window-placement/blob/master/EXPLAINER.md) or [Presentation API](https://w3c.github.io/presentation-api/)). Note that given the [Screen Enumeration API](https://github.com/webscreens/screen-enumeration/blob/master/EXPLAINER.md) and existing primitives on the Web, it is possible to write JavaScript code that intersects the rectangles of the Display and window, while taking into account devicePixelRatio in order to compute the interesting layout regions of a window spanned across displays. However this may not correctly handle corner cases of future device form factors, and thus this proposal tries to centralize access to "here are the interesting parts of the screen a developer can target or consider for presenting content" as a practical starting point.
 
 ```
-interface VisualViewport : EventTarget {
+interface Viewport : EventTarget {
 	readonly attribute FrozenArray<DOMRect> segments;
 }
 ```
 
-The value returned from querying `visualViewport.segments` will be an array of DOMRects and based on the data returned for each "viewport segment", developers will be able to infer the number of hinges available as well as the hinge orientation. When `visualViewport.segments` is queried on a device with only a single segment, this will return `null`. This isn't exposed in this case because this information is redundant with other fields on VisualViewport. This also avoids future compatibility issues so that authors don't start using `visualViewport.segments[0]` to target single-screen devices.
+The value returned from querying `viewport.segments` will be an array of DOMRects and based on the data returned for each "viewport segment", developers will be able to infer the number of hinges available as well as the hinge orientation. When `viewport.segments` is queried on a device with only a single segment, this will return an array of one element representing the viewport size.
 
 A user may at any point take the browser window out of spanning mode and place it on one of the screens or vice-versa, in those cases the window resize event will fire and authors can query and get the number of available viewport segments.
 
@@ -104,7 +107,7 @@ Let's take a look at a few practical examples of the scenarios above and how vie
 #### JavaScript solution outline:
 
 ```js  
-const segments = window.visualViewport.segments;
+const segments = window.viewport.segments;
 
 if (segments && segments.length > 1) {
 	// now we know the device is a foldable
@@ -128,7 +131,7 @@ Additionally, there are a number of new [environment variables](https://drafts.c
 
 ```js
 window.onresize = function() {
-    const segments = window.visualViewport.segments;
+    const segments = window.viewport.segments;
     if (segments && segments.length > 1) {
         // Make changes two split content into the segments.
     } else {
