@@ -1,4 +1,8 @@
-# Visual Viewport API
+# Visual Viewport API (Archived)
+
+🚫 **This project is no longer maintained.**
+
+The `visualViewport` object proposal is now merged upstream to [CSSOM-View](https://drafts.csswg.org/cssom-view/#visualViewport)
 
 ## tl;dr
 
